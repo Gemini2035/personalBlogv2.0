@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-05-15 16:04:23
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-10-31 15:41:36
+ * @LastEditTime: 2023-10-31 23:21:38
  * @FilePath: /MyBlog_vue/src/views/home.vue
 -->
 <script setup lang="ts">
@@ -22,7 +22,10 @@ const changeToPage = (toPage: number) => {
             <WellcomePart v-if="NaviController.getPageNum() === 0" @click="changeToPage(1)" />
             <div class="maintain-content" v-else>
                 <Navi />
-                <router-view />
+                <div class="divider" />
+                <div class="content">
+                    <router-view />
+                </div>
             </div>
         </transition>
     </div>
@@ -39,6 +42,15 @@ const changeToPage = (toPage: number) => {
         width: 100%;
         height: 100%;
         overflow: hidden;
+        .divider {
+            width: 100%;
+            height: 3px;
+        }
+        .content {
+            width: 100%;
+            height: calc(95vh - 3px);
+            overflow-y: auto;
+        }
     }
 }
 
