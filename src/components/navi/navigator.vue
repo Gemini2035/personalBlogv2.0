@@ -1,12 +1,13 @@
 <!--
  * @Date: 2023-10-29 21:34:09
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-10-31 23:12:51
+ * @LastEditTime: 2023-11-04 17:30:55
  * @FilePath: /MyBlog_vue/src/components/navi/navigator.vue
 -->
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted } from 'vue';
-import NaviController from '../../store/navi_controller';
+import NaviController from '../../store/naviController';
+import BasicSettings from '../../store/basicSettings';
 import { ClickClass, ClickType } from '../../class/click_class';
 
 const naviData: ReadonlyArray<{ name: string, nameEn: string, key: number, color: string }> = [
@@ -30,7 +31,11 @@ onMounted(() => {
 
 onUnmounted(() => {
     clearInterval(Timer);
-})
+});
+
+// 网站icon暗黑模式适配
+const siteIconUrl = computed(() => { return BasicSettings.getIsDark()? 'src/assets/navigator/siteIconDark.svg' : '/siteIcon.svg'; });
+const themeButtonUrl = computed(() => { return BasicSettings.getIsDark()? 'src/assets/navigator/moon.svg' : 'src/assets/navigator/sun.max.fill.svg'; });
 
 // 事件代理
 const clickMonitor = (event: any) => {
@@ -41,7 +46,7 @@ const clickMonitor = (event: any) => {
     } else if (clickInfo.clickType === 'change') {
         NaviController.setPageNum(clickInfo.clickParm! as number);
         if (isFocus.value) NaviController.setNaviState(false);
-    }
+    } else if (clickInfo.clickType === 'theme') { BasicSettings.setIsDark(); }
 }
 
 const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.stringify(new ClickClass<T>(type, target)); }
@@ -49,17 +54,23 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.string
 </script>
 
 <template>
-    <div class="navi-container" @click="clickMonitor" :class="isFocus ? '' : 'title-mode'">
+    <div class="navi-container" @click="clickMonitor" :class="isFocus ? '' : 'title-mode'" :dark-mode="BasicSettings.getDarkClass()">
         <div class="navi-tips">
-            <div class="site-logo"><img src="/siteIcon.svg" alt="" :clickInfo="clickInfoFormat<string>('back')"></div>
+            <div class="button-group">
+                <div class="site-logo">
+                    <img :src="siteIconUrl" alt="返回" :clickInfo="clickInfoFormat<void>('back')">
+                </div>
+                <div class="theme-button"><img :src="themeButtonUrl" alt="主题" :clickInfo="clickInfoFormat<void>('theme')"></div>
+            </div>
             <p class="timer">{{ NaviController.getTime() }}</p>
         </div>
         <div class="maintain-container">
             <div v-for="item in naviData" :key="item.key" class="navi-item"
                 :style="{ backgroundColor: isFocus ? item.color : 'transparent' }"
-                :clickInfo="isFocus? clickInfoFormat<number>('change', item.key) : undefined">
+                :clickInfo="isFocus ? clickInfoFormat<number>('change', item.key) : undefined">
                 <div class="title-group">
-                    <h1 class="title" :class="NaviController.isActive(item.key) ? 'active' : ''" :clickInfo="clickInfoFormat<number>('change', item.key)">{{ item.name }}</h1>
+                    <h1 class="title" :class="NaviController.isActive(item.key) ? 'active' : ''"
+                        :clickInfo="clickInfoFormat<number>('change', item.key)">{{ item.name }}</h1>
                     <div class="divider" />
                     <h1 class="title-en">{{ item.nameEn }}</h1>
                 </div>
@@ -75,23 +86,28 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.string
 
 .navi-container {
     height: 100%;
+
     .navi-tips {
         transition: 0.1s ease-in-out;
         display: none;
     }
+
     .maintain-container {
         display: flex;
         height: 100%;
+
         .navi-item {
             width: calc(100% / 3 - 1px);
             border-right: 1px solid;
             position: relative;
             transition: 0s linear;
+
             .title-group {
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
+
                 .title {
                     transition: inherit;
                     font-size: 3rem;
@@ -100,12 +116,14 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.string
                     letter-spacing: 0.5vw;
                     white-space: nowrap;
                 }
+
                 .divider {
                     height: 0;
                     border-bottom: 2px solid;
                     opacity: 0;
                     margin: 0;
                 }
+
                 .title-en {
                     text-align: center;
                     margin-top: 0;
@@ -113,14 +131,29 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.string
                 }
             }
         }
+
         .navi-item:hover {
             cursor: pointer;
             animation: HoverAnimate 1.8s infinite ease-in-out;
-            @keyframes HoverAnimate { 50% { opacity: 0.8; }}
+
+            @keyframes HoverAnimate {
+                50% {
+                    opacity: 0.8;
+                }
+            }
+
             .title-group {
-                .title { transform: translateY(0); }
-                .divider { opacity: 1; }
-                .title-en { opacity: 1; }
+                .title {
+                    transform: translateY(0);
+                }
+
+                .divider {
+                    opacity: 1;
+                }
+
+                .title-en {
+                    opacity: 1;
+                }
             }
         }
     }
@@ -134,29 +167,48 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.string
     border-bottom: 1px solid #888;
     align-items: center;
     justify-content: space-between;
+    background-color: #fff;
+
     .navi-tips {
-        width: 15%;
+        width: 18%;
         height: 100%;
         align-items: center;
         padding-left: 1%;
         display: flex;
         justify-content: space-between;
-        .site-logo {
+
+        .button-group {
             height: 100%;
             max-height: 5vh;
             display: flex;
-            align-items: center;
+            width: 25%;
+            justify-content: space-around;
+
+            .site-logo {
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+
+            .theme-button {
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+
             img {
                 margin: auto;
                 height: 60%;
                 width: auto;
             }
+
             img:hover {
                 cursor: pointer;
                 opacity: 0.5;
                 // TODO: 解决animate不生效问题
             }
         }
+
         .timer {
             font-size: 1.1rem;
             font-weight: bold;
@@ -166,24 +218,45 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.string
 
     .maintain-container {
         width: 40%;
+
         .navi-item {
             border: 0;
+
             .title {
                 transition: none;
                 transform: translateY(0);
                 font-size: 1rem;
                 opacity: 0.5;
             }
+
             .title.active {
                 opacity: 1;
             }
+
             .title:hover {
                 animation: HoverAnimate 1.2s ease-in-out infinite;
-                @keyframes HoverAnimate { 50% { opacity: 1; } }
+
+                @keyframes HoverAnimate {
+                    50% {
+                        opacity: 1;
+                    }
+                }
             }
-            .divider { display: none; }
-            .title-en { display: none; }
+
+            .divider {
+                display: none;
+            }
+
+            .title-en {
+                display: none;
+            }
         }
     }
+}
+
+// 暗黑模式适配
+.navi-container.title-mode[dark-mode='dark'] {
+    background-color: #000;
+    color: #fff;
 }
 </style>

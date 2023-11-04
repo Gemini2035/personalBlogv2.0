@@ -1,12 +1,13 @@
 /*
  * @Date: 2023-10-29 20:20:01
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-10-31 23:49:51
- * @FilePath: /MyBlog_vue/src/store/navi_controller.ts
+ * @LastEditTime: 2023-11-04 16:14:31
+ * @FilePath: /MyBlog_vue/src/store/naviController.ts
  */
 import { reactive } from 'vue';
 import router from '../routes';
 import { RouteRecordRaw } from 'vue-router';
+import SelfIntroController from './selfIntroController';
 
 // 颜色列表
 const colorList: ReadonlyArray<{ bgc: string, fc: string }> = [
@@ -40,13 +41,15 @@ class NAVICONTROLLER {
     setTime(): void {
         const stringFormate = (char: number) => { return `${char < 10? '0' : ''}${char}`; }
         var date = new Date();
-        const time = `${date.getFullYear()}-${stringFormate(date.getMonth() + 1)}-${stringFormate(date.getDate())} ${stringFormate(date.getHours())}:${date.getMinutes()}:${stringFormate(date.getSeconds())}`;
+        const time = `${date.getFullYear()}-${stringFormate(date.getMonth() + 1)}-${stringFormate(date.getDate())} ${stringFormate(date.getHours())}:${stringFormate(date.getMinutes())}:${stringFormate(date.getSeconds())}`;
         this.nowTime = time;
     }
 
     getPageNum(): number { return this.pageNum; }
     setPageNum(target: number): void {
         this.pageNum = target;
+        // 当返回自我介绍时重置状态
+        if (target === 2) SelfIntroController.resetState();
         router.push({ name: childrenRoutes.at(target - 1)!.name });
     }
 
@@ -70,7 +73,4 @@ class NAVICONTROLLER {
     isActive(target: number): boolean { return this.pageNum === target; }
 }
 
-const NaviController = reactive(new NAVICONTROLLER());
-
-
-export default NaviController;
+export default reactive(new NAVICONTROLLER());

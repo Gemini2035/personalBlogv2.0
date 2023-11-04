@@ -6,11 +6,10 @@
 -->
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue';
-import NaviController from '../../store/navi_controller';
+import NaviController from '../../store/naviController';
 
-// 由于setInterval函数有两个重载，一个是NodeJS.Timer返回类型, 一个是number返回类型。注意区别
+// setInterval函数有两个重载，一个是NodeJS.Timer返回类型, 一个是number返回类型。注意区别
 let LoopTimer: number | undefined = undefined;
-
 
 const timerClear = () => {
     window.clearInterval(LoopTimer);
@@ -51,4 +50,4 @@ div h1 {
 div h1:hover {
     cursor: pointer;
 }
-</style>
+</style>../../store/naviController
