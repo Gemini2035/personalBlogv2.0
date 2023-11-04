@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-10-29 20:20:01
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-04 16:14:31
+ * @LastEditTime: 2023-11-05 03:17:07
  * @FilePath: /MyBlog_vue/src/store/naviController.ts
  */
 import { reactive } from 'vue';
@@ -49,15 +49,12 @@ class NAVICONTROLLER {
     setPageNum(target: number): void {
         this.pageNum = target;
         // 当返回自我介绍时重置状态
-        if (target === 2) SelfIntroController.resetState();
+        if (target === 2) SelfIntroController.resetAll();
         router.push({ name: childrenRoutes.at(target - 1)!.name });
     }
 
     getNaviState(): boolean { return this.naviState; }
-    setNaviState(target?: boolean): void {
-        if (target) this.naviState = target;
-        else this.naviState = !this.naviState;
-    }
+    setNaviState(target?: boolean): void { this.naviState = target || !this.naviState; }
 
     getBgColor(): string { return this.bgcolor; }
     getFColor(): string { return this.fcolor; }

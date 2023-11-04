@@ -1,3 +1,9 @@
+/*
+ * @Date: 2023-11-04 15:39:06
+ * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
+ * @LastEditTime: 2023-11-05 03:16:29
+ * @FilePath: /MyBlog_vue/src/store/basicSettings.ts
+ */
 import { useDark, useToggle } from '@vueuse/core'
 import { WritableComputedRef, reactive } from 'vue';
 

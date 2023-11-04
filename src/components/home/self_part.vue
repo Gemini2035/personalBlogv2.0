@@ -1,58 +1,96 @@
 <!--
  * @Date: 2023-10-31 15:44:47
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-04 15:33:19
+ * @LastEditTime: 2023-11-05 03:19:15
  * @FilePath: /MyBlog_vue/src/components/home/self_part.vue
 -->
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
+import SelfIntroController from '../../store/selfIntroController';
+import InfoContent from './selfPart/info-content.vue';
 
-const isActive = ref(true);
+let timer = false;
+const activeClass = computed(() => { return SelfIntroController.getTitleIsVertical() ? 'more-content' : '' });
+const activeMethod = () => {
+    if (timer) return;
+    SelfIntroController.setTitleIsVertical(true);
+}
+const clickMethod = () => {
+    timer = true;
+    SelfIntroController.setTitleIsVertical(false)
+    window.setTimeout(() => timer = false, 2000);
+}
 </script>
 
 <template>
-    <div class="self-container">
-        <div class="title-box" @mouseover="isActive = false" :class="isActive? '' : 'small'">
+    <div class="self-container" :class="activeClass">
+        <div class="title-box" @mouseover="activeMethod">
             <p class="title">Carloss</p>
         </div>
-        <div class="content-box" :class="isActive? '' : 'large'">111</div>
+        <div class="content-box">
+            <InfoContent />
+        </div>
     </div>
 </template>
 
 <style lang="less" scoped>
-* { transition: 0.6s ease-in-out; }
+* {
+    transition: 0.6s ease-in-out;
+}
+
 .self-container {
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     display: flex;
+
     .title-box {
         height: 100%;
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+
         .title {
-            font-size: 24.5rem;
+            font-size: 27vw;
             font-weight: bold;
+            cursor: default;
         }
     }
-    .title-box.small {
-        width: 20%;
-        .title {
-            transform: rotate3d(0, 0, 1, -90deg);
-            font-size: 12rem;
-            color: rgba(210, 0, 60, 1 );
-        }
-    }
+
     .content-box {
-        background-color: rgba(256, 0, 0, 0.3);
         width: 0;
     }
-    .content-box.large {
-        border-left: 1px solid;
+}
+
+.self-container.more-content {
+    .title-box {
+        width: 20%;
+
+        .title {
+            transform: rotate3d(0, 0, 1, -90deg);
+            font-size: 25vh;
+        }
+    }
+
+    .content-box {
+        padding-left: 0.5%;
         width: calc(80% - 1px);
+        height: 100%;
+        border-left: 1px solid #888;
+        animation: 0.9s ease-in-out AppearAnimate;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        @keyframes AppearAnimate {
+            0% {
+                margin-top: 100vh;
+            }
+
+            100% {
+                margin-top: 0;
+            }
+        }
     }
 }
 </style>
