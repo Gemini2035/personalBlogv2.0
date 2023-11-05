@@ -1,13 +1,14 @@
 <!--
  * @Date: 2023-10-31 15:44:47
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-05 03:19:15
+ * @LastEditTime: 2023-11-06 02:35:18
  * @FilePath: /MyBlog_vue/src/components/home/self_part.vue
 -->
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import SelfIntroController from '../../store/selfIntroController';
 import InfoContent from './selfPart/info-content.vue';
+import ContactContent from './selfPart/contact_content.vue';
 
 let timer = false;
 const activeClass = computed(() => { return SelfIntroController.getTitleIsVertical() ? 'more-content' : '' });
@@ -16,19 +17,35 @@ const activeMethod = () => {
     SelfIntroController.setTitleIsVertical(true);
 }
 const clickMethod = () => {
+    if (!SelfIntroController.getTitleIsVertical()) return;
     timer = true;
     SelfIntroController.setTitleIsVertical(false)
     window.setTimeout(() => timer = false, 2000);
 }
+
+// 滚动监听器
+const scrollArea = ref<HTMLElement | null>(null);
+let Timer: number | undefined = undefined;
+const scorllMonitor = () => {
+    if (Timer) clearTimeout(Timer);
+    SelfIntroController.setScrollTop(scrollArea.value!.scrollTop);
+    Timer = window.setTimeout(() => {
+        const viewHeight: number = scrollArea.value!.clientHeight / componentsList.length;
+        const index: number = Math.floor(SelfIntroController.getscrollTop() / viewHeight);
+        scrollArea.value!.children[index].scrollIntoView({ behavior: 'smooth' });
+        SelfIntroController.setScrollTop(0);
+    }, 600);
+}
+const componentsList = [InfoContent, ContactContent];
 </script>
 
 <template>
     <div class="self-container" :class="activeClass">
         <div class="title-box" @mouseover="activeMethod">
-            <p class="title">Carloss</p>
+            <p class="title" @click="clickMethod">Carloss</p>
         </div>
-        <div class="content-box">
-            <InfoContent />
+        <div class="content-box" @scroll="scorllMonitor" ref="scrollArea">
+            <component v-for="(item, index) in componentsList" :is="item" :key="index" />
         </div>
     </div>
 </template>
