@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-05 12:27:16
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 02:38:22
+ * @LastEditTime: 2023-11-07 02:41:21
  * @FilePath: /MyBlog_vue/src/components/home/selfPart/contact_content.vue
 -->
 <script lang="ts" setup>
@@ -139,12 +139,13 @@ import SelfIntroController from '../../../store/selfIntroController';
     .self-intro {
         text-align: center;
         font-family: Mier B;
-        cursor: pointer;
+        cursor: default;
 
         .divider {
-            width: 30%;
+            width: 0;
             margin: 0 auto;
             border: 1px solid;
+            opacity: 0;
         }
         .title {
             font-size: 175%;
@@ -173,6 +174,13 @@ import SelfIntroController from '../../../store/selfIntroController';
         .time-info {
             margin: 0;
             font-size: 80%;
+        }
+    }
+
+    .self-intro:hover {
+        .divider {
+            width: 30%;
+            opacity: 1;
         }
     }
 }</style>
