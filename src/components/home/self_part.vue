@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-10-31 15:44:47
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-06 02:35:18
+ * @LastEditTime: 2023-11-07 02:06:00
  * @FilePath: /MyBlog_vue/src/components/home/self_part.vue
 -->
 <script lang="ts" setup>
@@ -23,19 +23,6 @@ const clickMethod = () => {
     window.setTimeout(() => timer = false, 2000);
 }
 
-// 滚动监听器
-const scrollArea = ref<HTMLElement | null>(null);
-let Timer: number | undefined = undefined;
-const scorllMonitor = () => {
-    if (Timer) clearTimeout(Timer);
-    SelfIntroController.setScrollTop(scrollArea.value!.scrollTop);
-    Timer = window.setTimeout(() => {
-        const viewHeight: number = scrollArea.value!.clientHeight / componentsList.length;
-        const index: number = Math.floor(SelfIntroController.getscrollTop() / viewHeight);
-        scrollArea.value!.children[index].scrollIntoView({ behavior: 'smooth' });
-        SelfIntroController.setScrollTop(0);
-    }, 600);
-}
 const componentsList = [InfoContent, ContactContent];
 </script>
 
@@ -44,7 +31,7 @@ const componentsList = [InfoContent, ContactContent];
         <div class="title-box" @mouseover="activeMethod">
             <p class="title" @click="clickMethod">Carloss</p>
         </div>
-        <div class="content-box" @scroll="scorllMonitor" ref="scrollArea">
+        <div class="content-box">
             <component v-for="(item, index) in componentsList" :is="item" :key="index" />
         </div>
     </div>
@@ -77,6 +64,7 @@ const componentsList = [InfoContent, ContactContent];
 
     .content-box {
         width: 0;
+        * { opacity: 0;}
     }
 }
 
@@ -98,6 +86,9 @@ const componentsList = [InfoContent, ContactContent];
         animation: 0.9s ease-in-out AppearAnimate;
         overflow-y: auto;
         overflow-x: hidden;
+        transform-style: preserve-3d;
+        perspective: 100px;
+        * { opacity: 1;}
 
         @keyframes AppearAnimate {
             0% {
