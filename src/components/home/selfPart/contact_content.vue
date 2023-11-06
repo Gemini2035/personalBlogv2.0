@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-05 12:27:16
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 02:36:49
+ * @LastEditTime: 2023-11-07 02:38:22
  * @FilePath: /MyBlog_vue/src/components/home/selfPart/contact_content.vue
 -->
 <script lang="ts" setup>
@@ -139,6 +139,7 @@ import SelfIntroController from '../../../store/selfIntroController';
     .self-intro {
         text-align: center;
         font-family: Mier B;
+        cursor: pointer;
 
         .divider {
             width: 30%;
