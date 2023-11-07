@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-05 12:27:16
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 02:41:21
+ * @LastEditTime: 2023-11-07 13:07:00
  * @FilePath: /MyBlog_vue/src/components/home/selfPart/contact_content.vue
 -->
 <script lang="ts" setup>
@@ -58,9 +58,10 @@ import SelfIntroController from '../../../store/selfIntroController';
 
     .img-container {
         height: 40%;
+        width: 50%;
         text-align: center;
         overflow: hidden;
-        margin: 1% 0;
+        margin: 1% auto;
 
         img {
             height: 100%;

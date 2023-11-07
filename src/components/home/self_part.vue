@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-10-31 15:44:47
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 02:06:00
+ * @LastEditTime: 2023-11-07 13:04:16
  * @FilePath: /MyBlog_vue/src/components/home/self_part.vue
 -->
 <script lang="ts" setup>
@@ -71,6 +71,7 @@ const componentsList = [InfoContent, ContactContent];
 .self-container.more-content {
     .title-box {
         width: 20%;
+        overflow-y: auto;
 
         .title {
             transform: rotate3d(0, 0, 1, -90deg);
