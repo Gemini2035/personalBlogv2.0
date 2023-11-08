@@ -1,11 +1,11 @@
 <!--
  * @Date: 2023-11-04 20:29:02
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 01:39:58
- * @FilePath: /MyBlog_vue/src/components/home/selfPart/info-content.vue
+ * @LastEditTime: 2023-11-08 19:39:42
+ * @FilePath: /myBlog_versionVue/src/components/home/selfPart/info_content.vue
 -->
 <script lang="ts" setup>
-import SelfIntroController from '../../../store/selfIntroController';
+import SelfIntroController from '@/store/selfIntroController';
 </script>
 
 <template>

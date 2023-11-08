@@ -1,14 +1,14 @@
 <!--
  * @Date: 2023-10-29 21:34:09
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-04 17:30:55
- * @FilePath: /MyBlog_vue/src/components/navi/navigator.vue
+ * @LastEditTime: 2023-11-08 19:39:15
+ * @FilePath: /myBlog_versionVue/src/components/navi/navigator.vue
 -->
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted } from 'vue';
-import NaviController from '../../store/naviController';
-import BasicSettings from '../../store/basicSettings';
-import { ClickClass, ClickType } from '../../class/click_class';
+import NaviController from '@/store/naviController';
+import BasicSettings from '@/store/basicSettings';
+import { ClickClass, ClickType } from '@/class/click_class';
 
 const naviData: ReadonlyArray<{ name: string, nameEn: string, key: number, color: string }> = [
     { name: '个人简介', key: 2, nameEn: 'Self', color: 'rgba(245, 245, 245, 1)' },

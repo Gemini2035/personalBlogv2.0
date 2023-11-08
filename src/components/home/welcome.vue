@@ -1,12 +1,12 @@
 <!--
  * @Date: 2023-05-15 16:04:23
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-10-30 17:49:28
- * @FilePath: /MyBlog_vue/src/components/home/welcome.vue
+ * @LastEditTime: 2023-11-08 19:38:59
+ * @FilePath: /myBlog_versionVue/src/components/home/welcome.vue
 -->
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue';
-import NaviController from '../../store/naviController';
+import NaviController from '@/store/naviController';
 
 // setInterval函数有两个重载，一个是NodeJS.Timer返回类型, 一个是number返回类型。注意区别
 let LoopTimer: number | undefined = undefined;

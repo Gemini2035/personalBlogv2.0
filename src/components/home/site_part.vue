@@ -1,12 +1,10 @@
 <!--
  * @Date: 2023-10-31 21:06:49
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-08 01:34:51
- * @FilePath: /MyBlog_vue/src/components/home/site_part.vue
+ * @LastEditTime: 2023-11-08 19:38:49
+ * @FilePath: /myBlog_versionVue/src/components/home/site_part.vue
 -->
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from 'vue';
-import SiteIntroController from '../../store/siteIntroController';
 import BasicInfo from './sitePart/basic_info.vue';
 import ToolInfo from './sitePart/tool_info.vue';
 import ContributorInfo from './sitePart/contributor_info.vue';

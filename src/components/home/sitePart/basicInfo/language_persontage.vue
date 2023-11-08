@@ -1,12 +1,12 @@
 <!--
  * @Date: 2023-11-08 16:46:18
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-08 18:20:58
+ * @LastEditTime: 2023-11-08 19:31:38
  * @FilePath: /myBlog_versionVue/src/components/home/sitePart/language_persontage.vue
 -->
 <script lang="ts" setup >
 import { onMounted, onUnmounted, ref } from 'vue';
-import SiteIntroController from '../../../store/siteIntroController';
+import SiteIntroController from '@/store/siteIntroController';
 const hoverIndex = ref(0);
 let Timer: number | undefined = undefined;
 
@@ -55,8 +55,16 @@ onUnmounted(() => { clearInterval(Timer); })
 
 .title {
     margin: 1%;
-    font-size: 150%;
+    font-size: 200%;
     font-weight: bold;
+    position: relative;
+}
+.title::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    width: 50%;
+    border: 1px solid;
 }
 
 .bar-content {
@@ -96,6 +104,12 @@ onUnmounted(() => { clearInterval(Timer); })
 
             .persontage {
                 font-weight: bold;
+            }
+            .bar {
+                animation: HoverAnimate 1.5s ease-in-out infinite;
+                @keyframes HoverAnimate {
+                    50% { opacity: 0.5; }
+                }
             }
             .identify {
                 transform: translate3d(3%, 3%, 0);

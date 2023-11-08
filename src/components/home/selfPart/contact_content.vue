@@ -1,11 +1,11 @@
 <!--
  * @Date: 2023-11-05 12:27:16
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 17:32:47
- * @FilePath: /MyBlog_vue/src/components/home/selfPart/contact_content.vue
+ * @LastEditTime: 2023-11-08 19:42:24
+ * @FilePath: /myBlog_versionVue/src/components/home/selfPart/contact_content.vue
 -->
 <script lang="ts" setup>
-import SelfIntroController from '../../../store/selfIntroController';
+import SelfIntroController from '@/store/selfIntroController';
 </script>
 
 <template>
@@ -32,9 +32,8 @@ import SelfIntroController from '../../../store/selfIntroController';
             <div class="self-intro">
                 <p class="divider" />
                 <p class="title">我的博客 My Blog</p>
-                <p class="intro-content">旨在展示自己、记录个人学习历程、同时提高博主的审美</p>
-                <p class="intro-content-en">Intended to showcase oneself, Document personal learning journey, And enhance
-                    the blogger's aesthetics at the same time</p>
+                <p class="intro-content">旨在展示自己、记录个人学习历程、同时展示博主的设计感</p>
+                <p class="intro-content-en">Intended to showcase oneself, document personal learning journey, and showcase the blogger's sense of design at the same time</p>
                 <p class="notice">All Rights Reserved. All Lefts Too.</p>
                 <p class="time-info">© 2023 Blog of Carloss2035</p>
             </div>

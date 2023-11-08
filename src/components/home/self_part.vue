@@ -6,7 +6,7 @@
 -->
 <script lang="ts" setup>
 import { computed } from 'vue';
-import SelfIntroController from '../../store/selfIntroController';
+import SelfIntroController from '@/store/selfIntroController';
 import InfoContent from './selfPart/info_content.vue';
 import ContactContent from './selfPart/contact_content.vue';
 

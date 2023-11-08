@@ -1,12 +1,12 @@
 <!--
  * @Date: 2023-11-07 20:08:39
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-08 17:55:12
+ * @LastEditTime: 2023-11-08 19:38:18
  * @FilePath: /myBlog_versionVue/src/components/home/sitePart/basic_info.vue
 -->
 <script lang="ts" setup>
 // 上线时间 使用语言 语言占比 左右2:1 左上下1:1
-import LanguagePersontage from './language_persontage.vue';
+import LanguagePersontage from './basicInfo/language_persontage.vue';
 </script>
 
 <template>
