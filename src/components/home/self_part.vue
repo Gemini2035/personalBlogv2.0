@@ -1,13 +1,13 @@
 <!--
  * @Date: 2023-10-31 15:44:47
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 13:04:16
+ * @LastEditTime: 2023-11-07 20:08:58
  * @FilePath: /MyBlog_vue/src/components/home/self_part.vue
 -->
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import SelfIntroController from '../../store/selfIntroController';
-import InfoContent from './selfPart/info-content.vue';
+import InfoContent from './selfPart/info_content.vue';
 import ContactContent from './selfPart/contact_content.vue';
 
 let timer = false;

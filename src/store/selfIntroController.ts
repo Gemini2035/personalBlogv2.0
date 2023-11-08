@@ -1,6 +1,12 @@
 /*
  * @Date: 2023-11-04 15:02:23
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
+ * @LastEditTime: 2023-11-07 17:03:57
+ * @FilePath: /MyBlog_vue/src/store/selfIntroController.ts
+ */
+/*
+ * @Date: 2023-11-04 15:02:23
+ * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
  * @LastEditTime: 2023-11-07 01:49:59
  * @FilePath: /MyBlog_vue/src/store/selfIntroController.ts
  */
@@ -22,11 +28,11 @@ class SelfIntroController {
         { imgUrl: 'src/assets/self/infoImgRight.jpg', href: 'https://apod.nasa.gov/apod/ap230930.html' }
     ];
     private contactList: ReadonlyArray<{ icon: string, href: string, title: string }> = [
-        { icon: 'src/assets/site/qq.svg', href: 'https://im.qq.com/index/', title: 'QQ' },
-        { icon: 'src/assets/site/weChat.svg', href: 'https://weixin.qq.com/', title: '微信' },
-        { icon: 'src/assets/site/163.svg', href: 'https://mail.163.com/', title: '163邮箱' },
-        { icon: 'src/assets/site/github.svg', href: 'https://github.com/Gemini2035', title: 'GitHub' },
-        { icon: 'src/assets/site/twitter.svg', href: 'https://twitter.com/Z2530056984', title: '推特' }
+        { icon: 'src/assets/self/qq.svg', href: 'https://im.qq.com/index/', title: 'QQ' },
+        { icon: 'src/assets/self/weChat.svg', href: 'https://weixin.qq.com/', title: '微信' },
+        { icon: 'src/assets/self/163.svg', href: 'https://mail.163.com/', title: '163邮箱' },
+        { icon: 'src/assets/self/github.svg', href: 'https://github.com/Gemini2035', title: 'GitHub' },
+        { icon: 'src/assets/self/twitter.svg', href: 'https://twitter.com/Z2530056984', title: '推特' }
     ]
 
     getTitleIsVertical (): boolean { return this.titleIsVertical; }

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-05 12:27:16
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 13:07:00
+ * @LastEditTime: 2023-11-07 17:32:47
  * @FilePath: /MyBlog_vue/src/components/home/selfPart/contact_content.vue
 -->
 <script lang="ts" setup>
@@ -161,7 +161,7 @@ import SelfIntroController from '../../../store/selfIntroController';
         }
 
         .intro-content-en {
-            width: 80%;
+            width: 75%;
             font-size: 120%;
             margin: 0 auto;
         }

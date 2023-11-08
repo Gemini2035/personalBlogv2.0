@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-10-29 20:20:01
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-05 03:17:07
+ * @LastEditTime: 2023-11-07 17:18:20
  * @FilePath: /MyBlog_vue/src/store/naviController.ts
  */
 import { reactive } from 'vue';
@@ -26,7 +26,7 @@ const colorList: ReadonlyArray<{ bgc: string, fc: string }> = [
 const childrenRoutes: RouteRecordRaw[] = router.getRoutes().filter(item => item.name === 'home').at(0)!.children;
 
 class NAVICONTROLLER {
-    private pageNum = 2;
+    private pageNum = 3;
     private naviState = false;
     private bgcolor = 'rgba(255, 255, 255, 1)';
     private fcolor = 'rgba(0, 0, 0, 0.9)';
