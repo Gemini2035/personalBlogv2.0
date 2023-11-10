@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-11-07 16:33:52
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-10 17:05:24
+ * @LastEditTime: 2023-11-10 18:54:17
  * @FilePath: /myBlog_versionVue/src/store/siteIntroController.ts
  */
 import { reactive } from "vue";
@@ -32,6 +32,11 @@ class SiteIntroController {
         { time: '2023', status: 'future', content: '丰富站点图片库，持续优化UI', contentEn: 'Rich website image library, continuously optimizing UI' },
         { time: '2024', status: 'future', content: '为站点接入OpenAi', contentEn: 'Connect the site to OpenAi' }
     ];
+    private buildToolList: Array<{ imgUrl: string, name: string, href: string }> = [
+        { imgUrl: 'src/assets/site/viteLogo.svg', name: 'Vite', href: 'https://vitejs.dev/' },
+        { imgUrl: 'src/assets/site/vue3Logo.svg', name: 'Vue3', href: 'https://vuejs.org/' },
+        { imgUrl: 'src/assets/site/typeScriptLogo.svg', name: 'TypeScript', href: 'https://www.typescriptlang.org/' }
+    ]
 
     getGlobalScrollTop (): number { return this.globalScrollTop; }
     setGlobalScrollTop (target: number): void { this.globalScrollTop = target; }
@@ -39,6 +44,7 @@ class SiteIntroController {
     getLanguageData (): Array<{ name: string, persontage: string, key: number }> { return this.languageData.toSorted((a, b) => { return Number(b.persontage) - Number(a.persontage); }); }
     getTipsList (): Array<{ tipsEn: string, key: number }> { return this.tipsList }
     getTimeLineList (): Array<{ time: string, status: 'done' | 'dealing' | 'future', content: string, contentEn: string }> { return this.timeLineList; }
+    getBuildToolList (): Array<{ imgUrl: string, name: string, href: string }> { return this.buildToolList; }
 }
 
 export default reactive(new SiteIntroController());

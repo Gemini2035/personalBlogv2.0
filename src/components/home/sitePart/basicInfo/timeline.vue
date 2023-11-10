@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-08 23:59:45
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-10 17:25:07
+ * @LastEditTime: 2023-11-10 17:59:44
  * @FilePath: /myBlog_versionVue/src/components/home/sitePart/basicInfo/timeline.vue
 -->
 <script lang="ts" setup>
@@ -10,6 +10,7 @@ import SiteIntroController from '@/store/siteIntroController';
 
 <template>
     <div class="timeline-box">
+        <p class="title">Time Keeper 时间管理者</p>
         <div class="maintain-container">
             <div v-for="item in SiteIntroController.getTimeLineList()" :key="item.time" class="timeline-item">
                 <div class="content-container">
@@ -34,7 +35,6 @@ import SiteIntroController from '@/store/siteIntroController';
                 <p>未来方向</p>
             </div>
         </div>
-        <p class="title">Time Keeper 时间管理者</p>
     </div>
 </template>
 
@@ -49,6 +49,19 @@ import SiteIntroController from '@/store/siteIntroController';
     height: 100%;
     position: relative;
 
+    .title {
+        margin: 1%;
+        font-size: 200%;
+        font-weight: bold;
+        position: relative;
+    }
+    // .title::before {
+    //     content: '';
+    //     position: absolute;
+    //     top: 100%;
+    //     width: 75%;
+    //     border: 1px solid;
+    // }
     .maintain-container {
         width: 100%;
         height: 100%;
@@ -161,16 +174,6 @@ import SiteIntroController from '@/store/siteIntroController';
 
     .dot.future {
         border: 2px solid #ffa050;
-    }
-
-    .title {
-        font-size: 200%;
-        font-weight: bold;
-        position: absolute;
-        min-width: 360px;
-        bottom: 0;
-        margin: 0;
-        right: 1%;
     }
 }
 </style>

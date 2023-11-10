@@ -1,25 +1,29 @@
 <!--
  * @Date: 2023-11-07 20:08:39
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-09 00:09:18
+ * @LastEditTime: 2023-11-10 17:44:06
  * @FilePath: /myBlog_versionVue/src/components/home/sitePart/basic_info.vue
 -->
 <script lang="ts" setup>
 // 上线时间 使用语言 语言占比 左右2:1 左上下1:1
 import LanguagePersontage from './basicInfo/language_persontage.vue';
 import Timeline from './basicInfo/timeline.vue';
+import Structure from './basicInfo/structure.vue';
 </script>
 
 <template>
     <div class="basic-container">
         <div class="left-part">
             <div class="time-content">
-                <Timeline />
+                <LanguagePersontage />
+
             </div>
-            <div class="structure-content"></div>
+            <div class="structure-content">
+                <Structure />
+            </div>
         </div>
         <div class="right-part">
-            <LanguagePersontage />
+            <Timeline />
         </div>
     </div>
 </template>

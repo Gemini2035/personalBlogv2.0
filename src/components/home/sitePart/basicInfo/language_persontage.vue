@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-08 16:46:18
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-08 23:56:36
+ * @LastEditTime: 2023-11-10 18:07:01
  * @FilePath: /myBlog_versionVue/src/components/home/sitePart/basicInfo/language_persontage.vue
 -->
 <script lang="ts" setup >
@@ -27,113 +27,137 @@ onUnmounted(() => { clearInterval(Timer); })
 </script>
 
 <template>
-    <p class="title">语言占比 Language Persontage</p>
-    <div class="bar-content">
-        <div class="bar-box">
-            <div v-for="item in SiteIntroController.getLanguageData()" :key="item.key" class="bar-item" @mouseenter="mouseEnterBehavior(item.key)" @mouseleave="setTimer">
-                <div class="bar-container">
-                    <div :style="{ height: item.persontage + '%' }" class="bar" />
-                    <p class="persontage">{{ item.persontage + '%' }}</p>
+    <div class="persontage-container">
+        <div class="bar-content">
+            <div class="tips-content">
+                <template v-for="item in SiteIntroController.getTipsList()" :key="item.tipsEn">
+                    <Transition mode="out-in" name="fade">
+                        <p v-show="item.key === hoverIndex">{{ item.tipsEn }}</p>
+                    </Transition>
+                </template>
+            </div>
+            <div class="bar-skeleton">
+                <div class="bar-box">
+                    <div v-for="item in SiteIntroController.getLanguageData()" :key="item.key" class="bar-item"
+                        @mouseenter="mouseEnterBehavior(item.key)" @mouseleave="setTimer">
+                        <div class="bar-container">
+                            <div :style="{ height: item.persontage + '%' }" class="bar" />
+                            <p class="persontage">{{ item.persontage + '%' }}</p>
+                        </div>
+                        <p class="identify">{{ item.name }}</p>
+                    </div>
                 </div>
-                <p class="identify">{{ item.name }}</p>
             </div>
         </div>
-        <div class="tips-content">
-            <template v-for="item in SiteIntroController.getTipsList()" :key="item.tipsEn">
-                <Transition mode="out-in" name="fade">
-                    <p v-show="item.key === hoverIndex">{{ item.tipsEn }}</p>
-                </Transition>
-            </template>
-        </div>
+        <p class="title">Language Persontage 语言占比</p>
     </div>
 </template>
 
 <style lang="less" scoped>
 * {
     transition: 0.6s ease-in-out;
-}
-
-.title {
-    margin: 1%;
-    font-size: 200%;
-    font-weight: bold;
-    position: relative;
-}
-.title::before {
-    content: '';
-    position: absolute;
-    top: 100%;
-    width: 75%;
-    border: 1px solid;
-}
-
-.bar-content {
-    height: 100%;
-    width: 100%;
     cursor: default;
+}
 
-    .bar-box {
-        width: 75%;
-        height: 60%;
+.persontage-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .tips-content {
+        width: 50%;
+        position: relative;
+
+        p {
+            width: 90%;
+            font-size: 120%;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate3d(0%, -50%, 0);
+        }
+
+        p::first-letter {
+            font-size: 150%;
+            font-weight: bold;
+        }
+    }
+
+    .bar-content {
+        height: 100%;
+        width: 100%;
         display: flex;
-        justify-content: center;
-        margin: auto;
 
-        .bar-item {
-            width: 25%;
+        .bar-skeleton {
+            width: 50%;
             height: 100%;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-            .bar-container {
-                width: 100%;
+            .bar-box {
+                width: 80%;
                 height: 80%;
                 display: flex;
-                flex-direction: column-reverse;
-                align-items: center;
+                justify-content: center;
+                margin: auto;
 
-                .bar {
-                    border: 1px solid;
-                    width: 0;
+                .bar-item {
+                    width: 25%;
+                    height: 100%;
+                    text-align: center;
+
+                    .bar-container {
+                        width: 100%;
+                        height: 80%;
+                        display: flex;
+                        flex-direction: column-reverse;
+                        align-items: center;
+
+                        .bar {
+                            border: 1px solid;
+                            width: 0;
+                        }
+
+                        border-bottom: 1px solid;
+                    }
                 }
 
-                border-bottom: 1px solid;
-            }
-        }
-        .bar-item:hover {
-            cursor: pointer;
+                .bar-item:hover {
+                    cursor: pointer;
 
-            .persontage {
-                font-weight: bold;
-            }
-            .bar {
-                animation: HoverAnimate 1.5s ease-in-out infinite;
-                @keyframes HoverAnimate {
-                    50% { opacity: 0.5; }
+                    .persontage {
+                        font-weight: bold;
+                    }
+
+                    .bar {
+                        animation: HoverAnimate 1.5s ease-in-out infinite;
+
+                        @keyframes HoverAnimate {
+                            50% {
+                                opacity: 0.5;
+                            }
+                        }
+                    }
+
+                    .identify {
+                        transform: translate3d(3px, 3px, 0);
+                        font-weight: bold;
+                    }
                 }
-            }
-            .identify {
-                transform: translate3d(3%, 3%, 0);
-                font-weight: bold;
             }
         }
     }
-}
 
-.tips-content {
-    width: 100%;
-    position: relative;
 
-    p {
-        width: 35vw;
-        font-size: 120%;
-        position: absolute;
-        left: 50%;
-        transform: translate3d(-50%, 0, 0);
-    }
-
-    p::first-letter {
-        font-size: 150%;
+    .title {
+        font-size: 200%;
         font-weight: bold;
+        position: absolute;
+        min-width: 360px;
+        bottom: 0;
+        margin: 0;
+        right: 1%;
     }
 }
 
@@ -145,4 +169,5 @@ onUnmounted(() => { clearInterval(Timer); })
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
-}</style>
+}
+</style>
