@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-11-07 16:33:52
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-10 18:54:17
+ * @LastEditTime: 2023-11-11 01:30:18
  * @FilePath: /myBlog_versionVue/src/store/siteIntroController.ts
  */
 import { reactive } from "vue";
@@ -21,15 +21,15 @@ class SiteIntroController {
         { key: 3, tipsEn: 'Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language such as HTML or XML (including XML dialects such as SVG, MathML or XHTML).' }
     ];
     private timeLineList: Array<{ time: string, status: 'done' | 'dealing' | 'future', content: string, contentEn: string }> = [
-        { time: '2023.03.20', status: 'done', content: '新建文件夹', contentEn: 'Create the new folder' },
-        { time: '2023.05.29', status: 'done', content: '初版博客上线', contentEn: 'Initial blog launch' },
-        { time: '2023.05.30', status: 'done', content: '第一篇博客文章发布，Css随记', contentEn: 'The first blog article was published as Css Notes' },
-        { time: '2023.10.27', status: 'done', content: '项目向Vue3转移', contentEn: 'Project transfer to Vue3.js' },
-        { time: '2023.10.15', status: 'dealing', content: '使用Node.js为个人博客搭建后端', contentEn: 'Building a backend for personal blogs using Node.js' },
-        { time: '2023.11.29', status: 'dealing', content: '个人博客后端搭建完成', contentEn: 'Personal blog backend setup completed' },
-        { time: '2023.11.30', status: 'future', content: '第二版博客上线', contentEn: 'The second version of the blog was launched' },
-        { time: '2023.12.01', status: 'future', content: '第二版第一篇博客文章发布，Ts独特类型', contentEn: 'The first blog article in the second edition was published titled Unique Types of Ts' },
-        { time: '2023', status: 'future', content: '丰富站点图片库，持续优化UI', contentEn: 'Rich website image library, continuously optimizing UI' },
+        { time: 'March 20,2023', status: 'done', content: '新建文件夹', contentEn: 'Create the new folder' },
+        { time: 'May 29,2023', status: 'done', content: '初版博客上线', contentEn: 'Initial blog launch' },
+        { time: 'May 30,2023', status: 'done', content: '第一篇博客文章发布，Css随记', contentEn: 'The first blog article was published as Css Notes' },
+        { time: 'October 27,2023', status: 'done', content: '项目向Vue3转移', contentEn: 'Project transfer to Vue3.js' },
+        { time: 'November 15,2023', status: 'dealing', content: '使用Node.js为个人博客搭建后端', contentEn: 'Building a backend for personal blogs using Node.js' },
+        { time: 'November 29,2023', status: 'dealing', content: '个人博客后端搭建完成', contentEn: 'Personal blog backend setup completed' },
+        { time: 'November 30,2023', status: 'future', content: '第二版博客上线', contentEn: 'The second version of the blog was launched' },
+        { time: 'December 1,2023', status: 'future', content: '第二版第一篇博客文章发布，Ts独特类型', contentEn: 'The first blog article in the second edition was published titled Unique Types of Ts' },
+        { time: 'Later in 2023', status: 'future', content: '丰富站点图片库，持续优化UI', contentEn: 'Rich website image library, continuously optimizing UI' },
         { time: '2024', status: 'future', content: '为站点接入OpenAi', contentEn: 'Connect the site to OpenAi' }
     ];
     private buildToolList: Array<{ imgUrl: string, name: string, href: string }> = [
