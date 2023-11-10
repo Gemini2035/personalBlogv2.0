@@ -1,8 +1,8 @@
 <!--
  * @Date: 2023-11-08 16:46:18
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-08 19:31:38
- * @FilePath: /myBlog_versionVue/src/components/home/sitePart/language_persontage.vue
+ * @LastEditTime: 2023-11-08 23:56:36
+ * @FilePath: /myBlog_versionVue/src/components/home/sitePart/basicInfo/language_persontage.vue
 -->
 <script lang="ts" setup >
 import { onMounted, onUnmounted, ref } from 'vue';
@@ -63,7 +63,7 @@ onUnmounted(() => { clearInterval(Timer); })
     content: '';
     position: absolute;
     top: 100%;
-    width: 50%;
+    width: 75%;
     border: 1px solid;
 }
 

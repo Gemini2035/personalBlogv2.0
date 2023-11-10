@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-10-31 21:06:49
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-08 19:38:49
+ * @LastEditTime: 2023-11-08 23:53:58
  * @FilePath: /myBlog_versionVue/src/components/home/site_part.vue
 -->
 <script lang="ts" setup>
@@ -22,11 +22,6 @@ const componentsList = [BasicInfo, ToolInfo, ContributorInfo];
 <style lang="less" scoped>
 * { transition: 0.6s ease-in-out;}
 .site-container {
-    // animation: AppearAnimate 0.6s ease-in-out;
-    // @keyframes AppearAnimate {
-    //     from { margin-top: 100%;}
-    //     to { margin-top: 0; }
-    // }
     width: 100%;
     height: 100%;
 }
