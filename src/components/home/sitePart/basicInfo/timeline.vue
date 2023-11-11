@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-08 23:59:45
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-11 15:52:22
+ * @LastEditTime: 2023-11-11 20:49:16
  * @FilePath: /myBlog_versionVue/src/components/home/sitePart/basicInfo/timeline.vue
 -->
 <script lang="ts" setup>
@@ -82,14 +82,6 @@ const scrollMonitor = () => {
         font-weight: bold;
         position: relative;
     }
-
-    // .title::before {
-    //     content: '';
-    //     position: absolute;
-    //     top: 100%;
-    //     width: 75%;
-    //     border: 1px solid;
-    // }
 
     .maintain-container {
         width: 100%;

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-07 20:08:39
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-11 15:52:32
+ * @LastEditTime: 2023-11-11 20:48:07
  * @FilePath: /myBlog_versionVue/src/components/home/sitePart/basic_info.vue
 -->
 <script lang="ts" setup>
@@ -16,7 +16,6 @@ import Structure from './basicInfo/structure.vue';
         <div class="left-part">
             <div class="time-content">
                 <Languagepercentage />
-
             </div>
             <div class="structure-content">
                 <Structure />
@@ -37,6 +36,7 @@ import Structure from './basicInfo/structure.vue';
     width: 100%;
     height: 100%;
     display: flex;
+    border-bottom: 1px solid var(--ms-black);
 
     .left-part {
         width: 60%;
