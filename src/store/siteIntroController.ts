@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-11-07 16:33:52
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-11 01:30:18
+ * @LastEditTime: 2023-11-11 15:34:46
  * @FilePath: /myBlog_versionVue/src/store/siteIntroController.ts
  */
 import { reactive } from "vue";
@@ -9,10 +9,10 @@ import { reactive } from "vue";
 class SiteIntroController {
     private globalScrollTop = 0;
     private languageData = [
-        { name: 'HTML', persontage: '2.4', key: 0 },
-        { name: 'Vue', persontage: '70.1', key: 1 },
-        { name: 'TypeScript', persontage: '26.8', key: 2 },
-        { name: 'CSS', persontage: '0.7', key: 3 },
+        { name: 'HTML', percentage: '2.4', key: 0 },
+        { name: 'Vue', percentage: '70.1', key: 1 },
+        { name: 'TypeScript', percentage: '26.8', key: 2 },
+        { name: 'CSS', percentage: '0.7', key: 3 },
     ];
     private tipsList = [
         { key: 0, tipsEn: 'The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser. It defines the meaning and structure of web content. It is often assisted by technologies such as Cascading Style Sheets (CSS) and scripting languages such as JavaScript.' },
@@ -41,9 +41,17 @@ class SiteIntroController {
     getGlobalScrollTop (): number { return this.globalScrollTop; }
     setGlobalScrollTop (target: number): void { this.globalScrollTop = target; }
 
-    getLanguageData (): Array<{ name: string, persontage: string, key: number }> { return this.languageData.toSorted((a, b) => { return Number(b.persontage) - Number(a.persontage); }); }
+    getLanguageData (): Array<{ name: string, percentage: string, key: number }> { return this.languageData.toSorted((a, b) => { return Number(b.percentage) - Number(a.percentage); }); }
     getTipsList (): Array<{ tipsEn: string, key: number }> { return this.tipsList }
     getTimeLineList (): Array<{ time: string, status: 'done' | 'dealing' | 'future', content: string, contentEn: string }> { return this.timeLineList; }
+    getTimeLinePercentage (): Array<number> {
+        const total: number = this.timeLineList.length;
+        return [
+            Math.floor(this.timeLineList.filter(item => item.status === 'done').length / total * 100),
+            Math.floor(this.timeLineList.filter(item => item.status === 'dealing').length / total * 100),
+            Math.floor(this.timeLineList.filter(item => item.status === 'future').length / total * 100),
+        ];
+    }
     getBuildToolList (): Array<{ imgUrl: string, name: string, href: string }> { return this.buildToolList; }
 }
 

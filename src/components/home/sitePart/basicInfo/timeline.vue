@@ -1,11 +1,30 @@
 <!--
  * @Date: 2023-11-08 23:59:45
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-11 02:13:21
+ * @LastEditTime: 2023-11-11 15:52:22
  * @FilePath: /myBlog_versionVue/src/components/home/sitePart/basicInfo/timeline.vue
 -->
 <script lang="ts" setup>
 import SiteIntroController from '@/store/siteIntroController';
+import { computed, ref } from 'vue';
+
+// 滚动展示管理
+const percentageNumber = ref(0);
+const timelineContent = ref<HTMLElement | null>(null);
+const percentageRange = SiteIntroController.getTimeLinePercentage();
+const barColor = computed(() => {
+    if (percentageNumber.value < percentageRange[0]) return 'green';
+    else if (percentageNumber.value < percentageRange[0] + percentageRange[1]) return 'black';
+    else return 'brown';
+})
+const scrollMonitor = () => {
+    const containerHeight = timelineContent.value!.clientHeight;
+    const contentHeight = timelineContent.value!.scrollHeight;
+    const scrollTop = timelineContent.value!.scrollTop;
+    const scrollPercentage = (scrollTop / (contentHeight - containerHeight)) * 100;
+    percentageNumber.value = Math.floor(scrollPercentage);
+}
+
 </script>
 
 <template>
@@ -25,8 +44,12 @@ import SiteIntroController from '@/store/siteIntroController';
                     <p class="dot future" />
                     <p class="explanation-content">展望未来</p>
                 </div>
+                <div class="timeline-scrollbar" :class="barColor">
+                    <div class="bar-block" :style="{willChange: 'height', height: `${percentageNumber}%`}" />
+                    <p :style="{ willChange: 'transform', transform: `translate3d(0, calc(${percentageNumber}% - 15px), 0)`}">{{ percentageNumber }}%</p>
+                </div>
             </div>
-            <div class="timeline-content">
+            <div class="timeline-content" ref="timelineContent" @scroll="scrollMonitor">
                 <div class="timeline-item" v-for="item in SiteIntroController.getTimeLineList()" :key="item.time">
                     <div class="item-title">
                         <p class="dot" :class="item.status" />
@@ -80,6 +103,7 @@ import SiteIntroController from '@/store/siteIntroController';
             flex-direction: column;
             justify-content: space-evenly;
             align-items: center;
+            position: relative;
 
             .explanation-item {
                 margin-bottom: 25%;
@@ -97,6 +121,40 @@ import SiteIntroController from '@/store/siteIntroController';
                     margin-top: 10px;
                 }
             }
+
+            .timeline-scrollbar {
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin-top: 15px;
+                display: flex;
+
+                .bar-block {
+                    border: 1px solid;
+                }
+
+                p {
+                    margin-left: 3px;
+                }
+            }
+
+            .timeline-scrollbar.green {
+                p {
+                    color: var(--ms-green);
+                }
+                .bar-block {
+                    border: 1px solid var(--ms-green);
+                }
+            }
+            .timeline-scrollbar.brown {
+                p {
+                    color: var(--ms-brown);
+                }
+                .bar-block {
+                    border: 1px solid var(--ms-brown);
+                }
+            }
         }
 
         .timeline-content {
@@ -107,6 +165,7 @@ import SiteIntroController from '@/store/siteIntroController';
             border-top: 2px solid;
             overflow-y: auto;
             overflow-x: hidden;
+            scrollbar-width: thin;
 
             .timeline-item {
                 margin-bottom: 5%;
@@ -126,6 +185,16 @@ import SiteIntroController from '@/store/siteIntroController';
                         font-weight: bold;
                         margin-right: 1%;
                         position: relative;
+                    }
+
+                    .title-content::before {
+                        transition: 0.6s ease-in-out;
+                        content: '';
+                        position: absolute;
+                        width: 0;
+                        border: 0px solid;
+                        right: 0;
+                        top: 100%;
                     }
                 }
 
@@ -171,6 +240,10 @@ import SiteIntroController from '@/store/siteIntroController';
                 margin-bottom: 15%;
             }
         }
+
+        .timeline-content::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     .dot {
@@ -182,10 +255,11 @@ import SiteIntroController from '@/store/siteIntroController';
     }
 
     .dot.done {
-        border: 3px solid #7cbb00;
+        border: 3px solid var(--ms-green);
     }
 
     .dot.future {
-        border: 3px solid #ffa050;
+        border: 3px solid var(--ms-brown);
     }
-}</style>
+}
+</style>
