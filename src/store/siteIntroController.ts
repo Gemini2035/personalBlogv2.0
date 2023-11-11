@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-11-07 16:33:52
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-11 15:34:46
+ * @LastEditTime: 2023-11-12 02:19:38
  * @FilePath: /myBlog_versionVue/src/store/siteIntroController.ts
  */
 import { reactive } from "vue";
@@ -36,7 +36,15 @@ class SiteIntroController {
         { imgUrl: 'src/assets/site/viteLogo.svg', name: 'Vite', href: 'https://vitejs.dev/' },
         { imgUrl: 'src/assets/site/vue3Logo.svg', name: 'Vue3', href: 'https://vuejs.org/' },
         { imgUrl: 'src/assets/site/typeScriptLogo.svg', name: 'TypeScript', href: 'https://www.typescriptlang.org/' }
-    ]
+    ];
+    private aidList: Array< { imgUrl: string, title: string, content: string, href: string }> = [
+        { imgUrl: 'src/assets/self/github.svg', title: 'GitHub', content: '提供代码托管服务', href: 'https://github.com/' },
+        { imgUrl: 'src/assets/site/gptLogo.svg', title: 'ChatGPT', content: '部分代码咨询与参考', href: 'https://chat.openai.com/' },
+        { imgUrl: 'src/assets/site/vscodeLogo.svg', title: 'Visual Studio Code', content: '代码编辑器及相关调试(插件)', href: 'https://code.visualstudio.com/' },
+        { imgUrl: 'src/assets/site/nasaLogo.svg', title: 'NASA', content: '提供网站背景图片', href: 'https://www.nasa.gov/' },
+        { imgUrl: 'src/assets/site/appleLogo.svg', title: 'Apple', content: '提供开发硬件支持', href: 'https://www.apple.com/' },
+        { imgUrl: 'src/assets/site/wikiLogo.svg', title: '维基百科', content: '提供词条解释', href: 'https://www.wikipedia.org/' }
+    ];
 
     getGlobalScrollTop (): number { return this.globalScrollTop; }
     setGlobalScrollTop (target: number): void { this.globalScrollTop = target; }
@@ -53,6 +61,7 @@ class SiteIntroController {
         ];
     }
     getBuildToolList (): Array<{ imgUrl: string, name: string, href: string }> { return this.buildToolList; }
+    getAidList (): Array<{ imgUrl: string, title: string, content: string, href: string }> { return this.aidList; }
 }
 
 export default reactive(new SiteIntroController());
