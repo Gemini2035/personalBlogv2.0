@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-07 20:10:22
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-12 13:55:42
+ * @LastEditTime: 2023-11-12 19:47:31
  * @FilePath: /myBlog_versionVue/src/components/home/sitePart/tool_info.vue
 -->
 <script lang="ts" setup>
@@ -45,12 +45,12 @@ const getDirectionClass = (target: number) => { return classNameSet[target % 3];
     }
 
     .main-container {
-        margin-top: 3%;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
         margin: auto;
+        margin-top: 3%;
         width: 60%;
 
         .aid-item {

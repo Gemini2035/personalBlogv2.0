@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-11-07 16:33:52
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-12 13:04:01
+ * @LastEditTime: 2023-11-12 16:35:54
  * @FilePath: /myBlog_versionVue/src/store/siteIntroController.ts
  */
 import { reactive } from "vue";
@@ -45,10 +45,11 @@ class SiteIntroController {
         { imgUrl: 'src/assets/site/appleLogo.svg', title: 'Apple', content: '提供开发硬件支持', href: 'https://www.apple.com/' },
         { imgUrl: 'src/assets/site/wikiLogo.svg', title: '维基百科', content: '提供词条解释', href: 'https://www.wikipedia.org/' }
     ];
-
+    private contributorList: Array<{ avatar: string, percentage: string, nickName: string, href: string }> = [
+        { avatar: 'https://avatars.githubusercontent.com/u/76091679?v=4', nickName: 'Gemini2035', percentage: '100%', href: 'https://github.com/Gemini2035' }
+    ];
     getGlobalScrollTop (): number { return this.globalScrollTop; }
     setGlobalScrollTop (target: number): void { this.globalScrollTop = target; }
-
     getLanguageData (): Array<{ name: string, percentage: string, key: number }> { return this.languageData.toSorted((a, b) => { return Number(b.percentage) - Number(a.percentage); }); }
     getTipsList (): Array<{ tipsEn: string, key: number }> { return this.tipsList }
     getTimeLineList (): Array<{ time: string, status: 'done' | 'dealing' | 'future', content: string, contentEn: string }> { return this.timeLineList; }
@@ -62,6 +63,8 @@ class SiteIntroController {
     }
     getBuildToolList (): Array<{ imgUrl: string, name: string, href: string }> { return this.buildToolList; }
     getAidList (): Array<{ imgUrl: string, title: string, content: string, href: string }> { return this.aidList; }
+    getContributorList (): Array<{ avatar: string, percentage: string, nickName: string, href: string }> { return this.contributorList; }
+    getContributorNameString (): string { return this.contributorList.map(item => item.nickName).join(''); }
 }
 
 export default reactive(new SiteIntroController());
