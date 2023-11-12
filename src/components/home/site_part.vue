@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-10-31 21:06:49
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-11 20:41:19
+ * @LastEditTime: 2023-11-12 13:39:30
  * @FilePath: /myBlog_versionVue/src/components/home/site_part.vue
 -->
 <script lang="ts" setup>
@@ -9,6 +9,7 @@ import { ref } from 'vue';
 import BasicInfo from './sitePart/basic_info.vue';
 import ToolInfo from './sitePart/tool_info.vue';
 import ContributorInfo from './sitePart/contributor_info.vue';
+import SiteIntroController from '@/store/siteIntroController';
 
 const componentsList = [{ component: BasicInfo, name: 'basicInfo' }, { component: ToolInfo, name: 'toolInfo' }, { component: ContributorInfo, name: 'contributorInfo'}];
 // 站点基本信息(上线时间 使用语言 语言占比) 辅助工具 贡献者
@@ -16,6 +17,7 @@ let Timer: number | undefined = undefined;
 let monitorForbidden = false;
 const siteContainer = ref<HTMLElement | null>(null);
 const scrollMonitor = () => {
+    SiteIntroController.setGlobalScrollTop(siteContainer.value!.scrollTop);
     if (monitorForbidden) return;
     clearTimeout(Timer);
     Timer = window.setTimeout(() => scrollBehavior(), 600);
@@ -23,7 +25,7 @@ const scrollMonitor = () => {
 const scrollBehavior = () => {
     monitorForbidden = true;
     const windowHeight = window.innerHeight;
-    const scrolltop = siteContainer.value!.scrollTop;
+    const scrolltop = SiteIntroController.getGlobalScrollTop();
     const index = Math.floor(scrolltop / windowHeight + 0.6);
     document.getElementById(componentsList[index].name)!.scrollIntoView({ behavior: 'smooth' });
     window.setTimeout(() => monitorForbidden = false, 600);
