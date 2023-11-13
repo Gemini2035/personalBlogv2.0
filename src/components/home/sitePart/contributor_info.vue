@@ -9,13 +9,8 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import SiteIntroController from '@/store/siteIntroController';
 
 const topArea = ref<HTMLElement | null>(null);
-const transformPercentage = computed(() => {
-    const offset = Math.floor((2 - SiteIntroController.getGlobalScrollTop() / window.innerHeight) * 100);
-    return offset < 11? 1 : offset;
-    });
 const nameWallHeight = ref(0);
 const resizeBehavior = () => nameWallHeight.value = topArea.value?.clientHeight || 0;
-const wallString = ref(Array(10).fill(SiteIntroController.getContributorNameString()).join(' '));
 onMounted(() => {
     resizeBehavior();
     window.addEventListener('resize', () => resizeBehavior());
@@ -44,9 +39,9 @@ onUnmounted(() => window.removeEventListener('resize', () => resizeBehavior()))
                 </div>
             </div>
         </div>
-        <div class="name-wall" :style="{ willChange: 'transform', height: `calc(92vh - ${nameWallHeight}px)`, transform: `translate3d(0, ${ transformPercentage }%, 0)` }">
+        <!-- <div class="name-wall" :style="{ willChange: 'transform', height: `calc(92vh - ${nameWallHeight}px)`, transform: `translate3d(0, ${ transformPercentage }%, 0)` }">
             <p class="text">{{ wallString }}</p>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -57,8 +52,6 @@ onUnmounted(() => window.removeEventListener('resize', () => resizeBehavior()))
 
 .contributor-container {
     width: 100%;
-    height: 100%;
-    perspective: 100px;
 
     .top-area {
         width: 100%;
@@ -133,25 +126,6 @@ onUnmounted(() => window.removeEventListener('resize', () => resizeBehavior()))
                 }
 
             }
-        }
-    }
-
-    .name-wall {
-        width: 100%;
-        margin-top: 1%;
-        background-color: var(--ms-black);
-        color: var(--ms-white);
-
-        .text {
-            overflow-x: hidden;
-            overflow-y: hidden;
-            word-break: break-all;
-            font-weight: bold;
-            width: 100%;
-            height: 100%;
-            font-size: 1000%;
-            line-height: 10rem;
-            margin: 0;
         }
     }
 }
