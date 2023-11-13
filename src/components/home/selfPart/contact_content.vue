@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-05 12:27:16
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-14 01:12:37
+ * @LastEditTime: 2023-11-14 01:32:15
  * @FilePath: /myBlog_versionVue/src/components/home/selfPart/contact_content.vue
 -->
 <script lang="ts" setup>
@@ -47,7 +47,7 @@ import SelfIntroController from '@/store/selfIntroController';
 }
 
 .contact-content {
-    background-color: #fff;
+    background-color: var(--ms-white);
     height: 100%;
     width: 80%;
     transform: translateZ(20px);
