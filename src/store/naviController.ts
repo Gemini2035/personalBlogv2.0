@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-10-29 20:20:01
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-20 19:09:32
+ * @LastEditTime: 2023-11-20 20:56:43
  * @FilePath: /myBlog_versionVue/src/store/naviController.ts
  */
 import { reactive } from 'vue';
@@ -25,8 +25,8 @@ const colorList: ReadonlyArray<{ bgc: string, fc: string }> = [
 // 子页面列表
 
 class NaviController {
-    private pageNum = 0; // 0:welcome页面、1:导航界面、2:自我介绍、3:站点介绍、4:学习记录
-    private naviState = true;
+    private pageNum = 4; // 0:welcome页面、1:导航界面、2:自我介绍、3:站点介绍、4:学习记录
+    private naviState = false;
     private bgcolor = 'rgba(255, 255, 255, 1)';
     private fcolor = 'rgba(0, 0, 0, 0.9)';
     private nowTime = '';
