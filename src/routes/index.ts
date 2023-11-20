@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-05-15 16:04:23
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-10-31 22:02:31
- * @FilePath: /MyBlog_vue/src/routes/index.ts
+ * @LastEditTime: 2023-11-20 19:01:19
+ * @FilePath: /myBlog_versionVue/src/routes/index.ts
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -22,6 +22,6 @@ const router = createRouter({
             ]
         }
     ]
-})
+});
 
 export default router

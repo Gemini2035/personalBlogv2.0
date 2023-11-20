@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-10-29 21:34:09
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-08 19:39:15
+ * @LastEditTime: 2023-11-20 19:12:38
  * @FilePath: /myBlog_versionVue/src/components/navi/navigator.vue
 -->
 <script lang="ts" setup>
@@ -9,6 +9,7 @@ import { computed, onMounted, onUnmounted } from 'vue';
 import NaviController from '@/store/naviController';
 import BasicSettings from '@/store/basicSettings';
 import { ClickClass, ClickType } from '@/class/click_class';
+import { useRoute, useRouter } from 'vue-router';
 
 const naviData: ReadonlyArray<{ name: string, nameEn: string, key: number, color: string }> = [
     { name: '个人简介', key: 2, nameEn: 'Self', color: 'rgba(245, 245, 245, 1)' },
@@ -16,7 +17,10 @@ const naviData: ReadonlyArray<{ name: string, nameEn: string, key: number, color
     { name: '日常学习', key: 4, nameEn: 'Study', color: 'rgba(207, 216, 220, 1)' },
 ];
 
+const routes = useRoute()
+
 const isFocus = computed(() => { return NaviController.getNaviState() });
+
 
 // 更新时钟
 let Timer: number | undefined = undefined;
@@ -25,8 +29,14 @@ const upDateTime = () => {
     NaviController.setTime();
 }
 
+const naviUpdater = () => {
+    const index: number = NaviController.getHomeChildRoutes().findIndex(item => item.name === routes.name);
+    NaviController.setPageNum(index + 1);
+}
+
 onMounted(() => {
     Timer = window.setInterval(() => upDateTime(), 1000);
+    window.addEventListener('popstate', naviUpdater, false);
 });
 
 onUnmounted(() => {

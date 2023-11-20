@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-10-29 20:20:01
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 17:18:20
- * @FilePath: /MyBlog_vue/src/store/naviController.ts
+ * @LastEditTime: 2023-11-20 19:09:32
+ * @FilePath: /myBlog_versionVue/src/store/naviController.ts
  */
 import { reactive } from 'vue';
 import router from '../routes';
@@ -23,14 +23,15 @@ const colorList: ReadonlyArray<{ bgc: string, fc: string }> = [
     { bgc: 'rgba(244, 255, 255, 1)', fc: 'rgba(0, 0, 0, 0.7)' }
 ];
 // 子页面列表
-const childrenRoutes: RouteRecordRaw[] = router.getRoutes().filter(item => item.name === 'home').at(0)!.children;
 
-class NAVICONTROLLER {
-    private pageNum = 3;
-    private naviState = false;
+class NaviController {
+    private pageNum = 0; // 0:welcome页面、1:导航界面、2:自我介绍、3:站点介绍、4:学习记录
+    private naviState = true;
     private bgcolor = 'rgba(255, 255, 255, 1)';
     private fcolor = 'rgba(0, 0, 0, 0.9)';
     private nowTime = '';
+    private childrenRoutes: RouteRecordRaw[] = router.getRoutes().filter(item => item.name === 'home').at(0)!.children;
+
 
     constructor() {
         this.colorPicker();
@@ -39,7 +40,7 @@ class NAVICONTROLLER {
 
     getTime(): string { return this.nowTime; }
     setTime(): void {
-        const stringFormate = (char: number) => { return `${char < 10? '0' : ''}${char}`; }
+        const stringFormate = (char: number) => { return `${char < 10 ? '0' : ''}${char}`; }
         var date = new Date();
         const time = `${date.getFullYear()}-${stringFormate(date.getMonth() + 1)}-${stringFormate(date.getDate())} ${stringFormate(date.getHours())}:${stringFormate(date.getMinutes())}:${stringFormate(date.getSeconds())}`;
         this.nowTime = time;
@@ -50,7 +51,7 @@ class NAVICONTROLLER {
         this.pageNum = target;
         // 当返回自我介绍时重置状态
         if (target === 2) SelfIntroController.resetAll();
-        router.push({ name: childrenRoutes.at(target - 1)!.name });
+        router.push({ name: this.childrenRoutes.at(target - 1)!.name });
     }
 
     getNaviState(): boolean { return this.naviState; }
@@ -67,7 +68,9 @@ class NAVICONTROLLER {
         this.fcolor = fc;
     }
 
+    getHomeChildRoutes(): RouteRecordRaw[] { return this.childrenRoutes; }
+
     isActive(target: number): boolean { return this.pageNum === target; }
 }
 
-export default reactive(new NAVICONTROLLER());
+export default reactive(new NaviController());

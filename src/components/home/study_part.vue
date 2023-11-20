@@ -1,8 +1,8 @@
 <!--
  * @Date: 2023-10-31 22:01:03
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-10-31 22:01:24
- * @FilePath: /MyBlog_vue/src/components/home/study_part.vue
+ * @LastEditTime: 2023-11-20 12:07:25
+ * @FilePath: /myBlog_versionVue/src/components/home/study_part.vue
 -->
 <script lang="ts" setup></script>
 
