@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-10-29 21:34:09
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-20 19:12:38
+ * @LastEditTime: 2023-11-20 19:16:29
  * @FilePath: /myBlog_versionVue/src/components/navi/navigator.vue
 -->
 <script lang="ts" setup>
@@ -41,6 +41,7 @@ onMounted(() => {
 
 onUnmounted(() => {
     clearInterval(Timer);
+    window.removeEventListener('popstate', naviUpdater, false);
 });
 
 // 网站icon暗黑模式适配
