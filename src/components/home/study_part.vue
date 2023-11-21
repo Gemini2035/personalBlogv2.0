@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-10-31 22:01:03
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-21 18:21:44
+ * @LastEditTime: 2023-11-22 01:04:22
  * @FilePath: /myBlog_versionVue/src/components/home/study_part.vue
 -->
 <script lang="ts" setup>
@@ -11,7 +11,7 @@ import AsideNavi from './studyPart/aside_navi.vue';
 
 <template>
     <div class="study-container">
-        <div class="maintain-container">{{ StudyController.getSideNavi() }}</div>
+        <div class="maintain-container">{{ StudyController.getMenuNum() }}</div>
         <AsideNavi />
     </div>
 </template>

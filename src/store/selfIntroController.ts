@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-11-04 15:02:23
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-21 18:47:16
+ * @LastEditTime: 2023-11-22 00:42:30
  * @FilePath: /myBlog_versionVue/src/store/selfIntroController.ts
  */
 /*
@@ -36,7 +36,10 @@ class SelfIntroController {
     ]
 
     getTitleIsVertical (): boolean { return this.titleIsVertical; }
-    setTitleIsVertical (target?: boolean): void { this.titleIsVertical = target || !this.titleIsVertical; }
+    setTitleIsVertical (target?: boolean): void {
+        if (target === undefined) this.titleIsVertical = !this.titleIsVertical;
+        else this.titleIsVertical = target;
+    }
 
     getInfoList (): ReadonlyArray<{ title: string; titleEn: string; content: string; key: number }> { return this.infoList; }
 
@@ -44,7 +47,7 @@ class SelfIntroController {
 
     getContactList (): ReadonlyArray<{ icon: string, href: string, title: string }> { return this.contactList; }
 
-    resetAll(newState?: SelfIntroController): void { Object.assign(this, newState || new SelfIntroController()); }
+    resetAll (newState?: SelfIntroController): void { Object.assign(this, newState || new SelfIntroController()); }
 }
 
 export default reactive(new SelfIntroController());

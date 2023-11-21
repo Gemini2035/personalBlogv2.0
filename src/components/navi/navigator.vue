@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-10-29 21:34:09
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-21 17:39:35
+ * @LastEditTime: 2023-11-22 01:42:28
  * @FilePath: /myBlog_versionVue/src/components/navi/navigator.vue
 -->
 <script lang="ts" setup>
@@ -55,10 +55,14 @@ const clickMonitor = (event: any) => {
     if (!event.target.getAttribute("clickInfo")) return;
     const clickInfo: ClickClass<ClickType, number | string> = JSON.parse(event.target.getAttribute("clickInfo"));
     if (clickInfo.clickType === 'back') {
-        if (!clickInfo.clickParm) { NaviController.setNaviState(true); }
+        if (!clickInfo.clickParm) {
+            NaviController.setNaviState(true);
+            StudyController.setMenuNum(0);
+            StudyController.setSideNaviState(false);
+        }
     } else if (clickInfo.clickType === 'change') {
-        if (clickInfo.clickParm! as number === 4 && NaviController.getPageNum() === 4) StudyController.setSideNavi();
-        else StudyController.setSideNavi(false);
+        if (clickInfo.clickParm as number === 4 && NaviController.getPageNum() === 4) StudyController.setSideNaviState();
+        else StudyController.setSideNaviState(false);
         NaviController.setPageNum(clickInfo.clickParm! as number);
         if (isFocus.value) NaviController.setNaviState(false);
     } else if (clickInfo.clickType === 'theme') { BasicSettings.setIsDark(); }

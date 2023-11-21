@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-10-29 20:20:01
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-21 18:44:54
+ * @LastEditTime: 2023-11-22 00:43:10
  * @FilePath: /myBlog_versionVue/src/store/naviController.ts
  */
 import { reactive } from 'vue';
@@ -35,28 +35,31 @@ class NaviController {
         this.setTime();
     }
 
-    getTime(): string { return this.nowTime; }
-    setTime(): void {
+    getTime (): string { return this.nowTime; }
+    setTime (): void {
         const stringFormate = (char: number) => { return `${char < 10 ? '0' : ''}${char}`; }
         var date = new Date();
         const time = `${date.getFullYear()}-${stringFormate(date.getMonth() + 1)}-${stringFormate(date.getDate())} ${stringFormate(date.getHours())}:${stringFormate(date.getMinutes())}:${stringFormate(date.getSeconds())}`;
         this.nowTime = time;
     }
 
-    getPageNum(): number { return this.pageNum; }
-    setPageNum(target: number): void {
+    getPageNum (): number { return this.pageNum; }
+    setPageNum (target: number): void {
         this.pageNum = target;
         // 当返回自我介绍时重置状态
         if (target === 2) SelfIntroController.resetAll();
         router.push({ name: this.childrenRoutes.at(target - 1)!.name });
     }
 
-    getNaviState(): boolean { return this.naviState; }
-    setNaviState(target?: boolean): void { this.naviState = target || !this.naviState; }
+    getNaviState (): boolean { return this.naviState; }
+    setNaviState (target?: boolean): void {
+        if (target === undefined) this.naviState = !this.naviState;
+        else this.naviState = target;
+    }
 
-    getBgColor(): string { return this.bgcolor; }
-    getFColor(): string { return this.fcolor; }
-    colorPicker(): void {
+    getBgColor (): string { return this.bgcolor; }
+    getFColor (): string { return this.fcolor; }
+    colorPicker (): void {
         const oldColor: string = this.bgcolor;
         let { bgc, fc } = { bgc: '', fc: '' };
         do ({ bgc, fc } = (this.colorList[Math.floor(Math.random() * this.colorList.length)]))
