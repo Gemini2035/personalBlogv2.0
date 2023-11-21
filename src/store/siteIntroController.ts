@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-11-07 16:33:52
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-12 16:35:54
+ * @LastEditTime: 2023-11-21 18:50:03
  * @FilePath: /myBlog_versionVue/src/store/siteIntroController.ts
  */
 import { reactive } from "vue";
@@ -21,16 +21,16 @@ class SiteIntroController {
         { key: 3, tipsEn: 'Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language such as HTML or XML (including XML dialects such as SVG, MathML or XHTML).' }
     ];
     private timeLineList: Array<{ time: string, status: 'done' | 'dealing' | 'future', content: string, contentEn: string }> = [
-        { time: 'March 20,2023', status: 'done', content: '新建文件夹', contentEn: 'Create the new folder' },
-        { time: 'May 29,2023', status: 'done', content: '初版博客上线', contentEn: 'Initial blog launch' },
-        { time: 'May 30,2023', status: 'done', content: '第一篇博客文章发布，Css随记', contentEn: 'The first blog article was published as Css Notes' },
-        { time: 'October 27,2023', status: 'done', content: '项目向Vue3转移', contentEn: 'Project transfer to Vue3.js' },
-        { time: 'November 15,2023', status: 'dealing', content: '使用Node.js为个人博客搭建后端', contentEn: 'Building a backend for personal blogs using Node.js' },
-        { time: 'November 29,2023', status: 'dealing', content: '个人博客后端搭建完成', contentEn: 'Personal blog backend setup completed' },
-        { time: 'November 30,2023', status: 'future', content: '第二版博客上线', contentEn: 'The second version of the blog was launched' },
-        { time: 'December 1,2023', status: 'future', content: '第二版第一篇博客文章发布，Ts独特类型', contentEn: 'The first blog article in the second edition was published titled Unique Types of Ts' },
-        { time: 'Later in 2023', status: 'future', content: '丰富站点图片库，持续优化UI', contentEn: 'Rich website image library, continuously optimizing UI' },
-        { time: '2024', status: 'future', content: '为站点接入OpenAi', contentEn: 'Connect the site to OpenAi' }
+        { time: 'March 20,2023', status: 'done', content: '\u65b0\u5efa\u6587\u4ef6\u5939', contentEn: 'Create the new folder' },
+        { time: 'May 29,2023', status: 'done', content: '\u521d\u7248\u535a\u5ba2\u4e0a\u7ebf', contentEn: 'Initial blog launch' },
+        { time: 'May 30,2023', status: 'done', content: '\u7b2c\u4e00\u7bc7\u535a\u5ba2\u6587\u7ae0\u53d1\u5e03\uff0c\u0043\u0073\u0073\u968f\u8bb0', contentEn: 'The first blog article was published as Css Notes' },
+        { time: 'October 27,2023', status: 'done', content: '\u9879\u76ee\u5411\u0056\u0075\u0065\u0033\u8f6c\u79fb', contentEn: 'Project transfer to Vue3.js' },
+        { time: 'November 15,2023', status: 'dealing', content: '\u4f7f\u7528\u004e\u006f\u0064\u0065\u002e\u006a\u0073\u4e3a\u4e2a\u4eba\u535a\u5ba2\u642d\u5efa\u540e\u7aef', contentEn: 'Building a backend for personal blogs using Node.js' },
+        { time: 'November 29,2023', status: 'dealing', content: '\u4e2a\u4eba\u535a\u5ba2\u540e\u7aef\u642d\u5efa\u5b8c\u6210', contentEn: 'Personal blog backend setup completed' },
+        { time: 'November 30,2023', status: 'future', content: '\u7b2c\u4e8c\u7248\u535a\u5ba2\u4e0a\u7ebf', contentEn: 'The second version of the blog was launched' },
+        { time: 'December 1,2023', status: 'future', content: '\u7b2c\u4e8c\u7248\u7b2c\u4e00\u7bc7\u535a\u5ba2\u6587\u7ae0\u53d1\u5e03\uff0c\u0054\u0073\u72ec\u7279\u7c7b\u578b', contentEn: 'The first blog article in the second edition was published titled Unique Types of Ts' },
+        { time: 'Later in 2023', status: 'future', content: '\u4e30\u5bcc\u7ad9\u70b9\u56fe\u7247\u5e93\uff0c\u6301\u7eed\u4f18\u5316\u0055\u0049', contentEn: 'Rich website image library, continuously optimizing UI' },
+        { time: '2024', status: 'future', content: '\u4e3a\u7ad9\u70b9\u63a5\u5165\u004f\u0070\u0065\u006e\u0041\u0069', contentEn: 'Connect the site to OpenAi' }
     ];
     private buildToolList: Array<{ imgUrl: string, name: string, href: string }> = [
         { imgUrl: 'src/assets/site/viteLogo.svg', name: 'Vite', href: 'https://vitejs.dev/' },

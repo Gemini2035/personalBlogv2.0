@@ -6,6 +6,8 @@
   --ms-brown: #ffa050;
   --ms-black: #000;
   --ms-white: #fff;
+  --navi-height: 5vh;
+  --mask-color-light: rgba(128, 128, 128, 0.3);
 }
 
 body{

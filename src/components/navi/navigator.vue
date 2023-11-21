@@ -1,15 +1,16 @@
 <!--
  * @Date: 2023-10-29 21:34:09
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-20 19:16:29
+ * @LastEditTime: 2023-11-21 17:39:35
  * @FilePath: /myBlog_versionVue/src/components/navi/navigator.vue
 -->
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted } from 'vue';
 import NaviController from '@/store/naviController';
 import BasicSettings from '@/store/basicSettings';
-import { ClickClass, ClickType } from '@/class/click_class';
-import { useRoute, useRouter } from 'vue-router';
+import StudyController from '@/store/studyController';
+import ClickClass from '@/class/click_class';
+import { useRoute } from 'vue-router';
 
 const naviData: ReadonlyArray<{ name: string, nameEn: string, key: number, color: string }> = [
     { name: '个人简介', key: 2, nameEn: 'Self', color: 'rgba(245, 245, 245, 1)' },
@@ -17,7 +18,7 @@ const naviData: ReadonlyArray<{ name: string, nameEn: string, key: number, color
     { name: '日常学习', key: 4, nameEn: 'Study', color: 'rgba(207, 216, 220, 1)' },
 ];
 
-const routes = useRoute()
+const routes = useRoute();
 
 const isFocus = computed(() => { return NaviController.getNaviState() });
 
@@ -49,18 +50,21 @@ const siteIconUrl = computed(() => { return BasicSettings.getIsDark()? 'src/asse
 const themeButtonUrl = computed(() => { return BasicSettings.getIsDark()? 'src/assets/navigator/moon.svg' : 'src/assets/navigator/sun.max.fill.svg'; });
 
 // 事件代理
+type ClickType = 'back' | 'change' | 'theme';
 const clickMonitor = (event: any) => {
     if (!event.target.getAttribute("clickInfo")) return;
-    const clickInfo: ClickClass<number | string> = JSON.parse(event.target.getAttribute("clickInfo"));
+    const clickInfo: ClickClass<ClickType, number | string> = JSON.parse(event.target.getAttribute("clickInfo"));
     if (clickInfo.clickType === 'back') {
         if (!clickInfo.clickParm) { NaviController.setNaviState(true); }
     } else if (clickInfo.clickType === 'change') {
+        if (clickInfo.clickParm! as number === 4 && NaviController.getPageNum() === 4) StudyController.setSideNavi();
+        else StudyController.setSideNavi(false);
         NaviController.setPageNum(clickInfo.clickParm! as number);
         if (isFocus.value) NaviController.setNaviState(false);
     } else if (clickInfo.clickType === 'theme') { BasicSettings.setIsDark(); }
 }
 
-const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.stringify(new ClickClass<T>(type, target)); }
+const clickInfoFormat = <T>(type: ClickType, target?: T) => { return new ClickClass<ClickType, T>(type, target).stringify(); }
 
 </script>
 
@@ -174,7 +178,7 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.string
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 5vh;
+    height: var(--navi-height);
     border-bottom: 1px solid #888;
     align-items: center;
     justify-content: space-between;
@@ -190,7 +194,7 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return JSON.string
 
         .button-group {
             height: 100%;
-            max-height: 5vh;
+            max-height: var(--navi-height);
             display: flex;
             width: 25%;
             justify-content: space-around;

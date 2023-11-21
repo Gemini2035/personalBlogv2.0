@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-11-04 15:02:23
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-07 17:03:57
- * @FilePath: /MyBlog_vue/src/store/selfIntroController.ts
+ * @LastEditTime: 2023-11-21 18:47:16
+ * @FilePath: /myBlog_versionVue/src/store/selfIntroController.ts
  */
 /*
  * @Date: 2023-11-04 15:02:23
@@ -16,11 +16,11 @@ import { reactive } from "vue";
 class SelfIntroController {
     private titleIsVertical = false;
     private infoList: ReadonlyArray<{ title: string; titleEn: string; content: string; key: number }> = [
-        { title: '名称', titleEn: 'Name', content: '5f205fd76d0b', key: 0 },
-        { title: '性别', titleEn: 'Sex', content: '男', key: 1 },
-        { title: '年龄', titleEn: 'Age', content: '21', key: 2 },
-        { title: '居住地', titleEn: 'Location', content: '成都 四川 中国', key: 3 },
-        { title: '关键字', titleEn: 'KeyWord', content: '技术爱好者、瞎折腾、懒病患者、无上午组织、夜行性、番剧 ...', key: 4 },
+        { title: '\u540d\u79f0', titleEn: 'Name', content: '5f205fd76d0b', key: 0 },
+        { title: '\u6027\u522b', titleEn: 'Sex', content: '\u7537', key: 1 },
+        { title: '\u5e74\u9f84', titleEn: 'Age', content: '21', key: 2 },
+        { title: '\u5c45\u4f4f\u5730', titleEn: 'Location', content: '\u6210\u90fd\u0020\u56db\u5ddd\u0020\u4e2d\u56fd', key: 3 },
+        { title: '\u5173\u952e\u5b57', titleEn: 'KeyWord', content: '\u6280\u672f\u7231\u597d\u8005\u3001\u778e\u6298\u817e\u3001\u61d2\u75c5\u60a3\u8005\u3001\u65e0\u4e0a\u5348\u7ec4\u7ec7\u3001\u591c\u884c\u6027\u3001\u756a\u5267\u0020\u002e\u002e\u002e', key: 4 },
     ];
     private infoImgGallery: ReadonlyArray<{ imgUrl: string, href: string }> = [
         { imgUrl: 'src/assets/self/infoImgLeft.jpg', href: 'https://apod.nasa.gov/apod/ap231016.html' },
