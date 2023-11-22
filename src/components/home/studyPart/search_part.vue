@@ -1,10 +1,11 @@
 <!--
  * @Date: 2023-11-22 12:09:12
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-22 22:37:18
+ * @LastEditTime: 2023-11-22 22:58:23
  * @FilePath: /myBlog_versionVue/src/components/home/studyPart/search_part.vue
 -->
 <script setup lang="ts">
+import NaviController from '@/store/naviController';
 import StudyIntroController from '@/store/studyController';
 import { onMounted, onUnmounted, ref } from 'vue';
 
@@ -46,10 +47,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="search-container" :class="{ 'close': !StudyIntroController.getSearchState() }">
+    <div class="search-container" :class="{ 'close': !StudyIntroController.getSearchState(), 'hidden': NaviController.getNaviState() }">
         <div class="search-title" @click="openSearch">
             <div class="search-icon" />
             <p class="title-text">搜索</p>
+
         </div>
         <div class="input-content">
             <input class="search-input" ref="input" v-model="inputContent" />
@@ -67,6 +69,7 @@ onUnmounted(() => {
 }
 
 .search-container {
+    z-index: 1;
     position: fixed;
     height: calc(100% - var(--navi-height) - var(--navi-margin-bottom));
     width: 20%;
@@ -132,6 +135,7 @@ onUnmounted(() => {
             border-radius: 0;
             width: 80%;
             margin: 1% 0;
+            background-color: transparent;
         }
 
         .input-btn {
@@ -165,4 +169,11 @@ onUnmounted(() => {
         }
     }
 }
+
+.search-container.hidden {
+    background-color: red;
+    opacity: 0;
+    z-index: -1;
+}
+
 </style>

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-21 10:44:53
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-22 19:53:04
+ * @LastEditTime: 2023-11-22 22:57:13
  * @FilePath: /myBlog_versionVue/src/components/home/studyPart/aside_navi.vue
 -->
 <script setup lang="ts">
@@ -65,7 +65,7 @@ const asideClickMonitor = (event: any) => {
     height: calc(100% - var(--navi-height) - var(--navi-margin-bottom));
     top: calc(var(--navi-height) + var(--navi-margin-bottom));
     left: 0;
-    z-index: 1;
+    z-index: 2;
 
     .maintain-container {
         width: 25%;
@@ -177,11 +177,9 @@ const asideClickMonitor = (event: any) => {
 
 .aside-navi.hide {
     z-index: -1;
-    transition: 0.9s ease-in-out;
     opacity: 0;
 
     .maintain-container {
-        transition: 0.6s ease-in-out;
         transform: translate3d(100%, 0, 0);
 
         .close-btn {

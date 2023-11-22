@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-10-29 20:20:01
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-22 00:43:10
+ * @LastEditTime: 2023-11-22 22:51:40
  * @FilePath: /myBlog_versionVue/src/store/naviController.ts
  */
 import { reactive } from 'vue';
