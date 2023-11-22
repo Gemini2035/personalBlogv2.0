@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-10-29 21:34:09
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-22 01:42:28
+ * @LastEditTime: 2023-11-22 17:01:11
  * @FilePath: /myBlog_versionVue/src/components/navi/navigator.vue
 -->
 <script lang="ts" setup>
@@ -138,7 +138,7 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return new ClickCl
 
                 .divider {
                     height: 0;
-                    border-bottom: 2px solid;
+                    border-bottom: var(--navi-margin-bottom) solid;
                     opacity: 0;
                     margin: 0;
                 }

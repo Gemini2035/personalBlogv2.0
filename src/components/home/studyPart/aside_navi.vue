@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-21 10:44:53
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-22 01:38:56
+ * @LastEditTime: 2023-11-22 19:53:04
  * @FilePath: /myBlog_versionVue/src/components/home/studyPart/aside_navi.vue
 -->
 <script setup lang="ts">
@@ -62,9 +62,10 @@ const asideClickMonitor = (event: any) => {
     position: fixed;
     background-color: var(--mask-color-light);
     width: 100%;
-    height: calc(100% - var(--navi-height) - 1px);
-    top: calc(var(--navi-height) + 1px);
+    height: calc(100% - var(--navi-height) - var(--navi-margin-bottom));
+    top: calc(var(--navi-height) + var(--navi-margin-bottom));
     left: 0;
+    z-index: 1;
 
     .maintain-container {
         width: 25%;
@@ -72,8 +73,7 @@ const asideClickMonitor = (event: any) => {
         right: 0;
         background-color: var(--ms-white);
         height: 100%;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
+        border-left: 1px solid;
 
         .title-content {
             display: flex;

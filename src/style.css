@@ -2,11 +2,13 @@
 :root {
   font-family: "Helvetica", "Arial", sans-serif;
   line-height: 1.5;
+  --gray: #888;
   --ms-green: #7cbb00;
   --ms-brown: #ffa050;
   --ms-black: #000;
   --ms-white: #fff;
   --navi-height: 5vh;
+  --navi-margin-bottom: 2px;
   --mask-color-light: rgba(128, 128, 128, 0.3);
 }
 

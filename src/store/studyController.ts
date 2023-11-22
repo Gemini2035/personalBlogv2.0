@@ -3,11 +3,12 @@ import { reactive } from "vue";
 /*
  * @Date: 2023-11-20 20:49:00
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-22 00:56:14
+ * @LastEditTime: 2023-11-22 21:58:06
  * @FilePath: /myBlog_versionVue/src/store/studyController.ts
  */
 class StudyController {
-    private sideNavi = false;
+    private sideNavi = true;
+    private searchState = false;
     private menuData: ReadonlyArray<{ title: string, titleEn: string, key: number }> = [
         { title: '\u5168\u90e8\u6587\u7ae0', titleEn: 'All', key: 0 },
         { title: '\u524d\u7aef\u6587\u7ae0', titleEn: 'Frontend', key: 1 },
@@ -28,6 +29,12 @@ class StudyController {
 
     getMenuNum(): number { return this.menuNum; }
     setMenuNum(target: number): void { this.menuNum = target; }
+
+    getSearchState(): boolean { return this.searchState; }
+    setSearchState(target?: boolean): void {
+        if (target === undefined) this.searchState = !this.searchState;
+        else this.searchState = target;
+    }
 }
 
 export default reactive(new StudyController());
