@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-11-21 10:44:53
  * @LastEditors: Gemini2035 76091679+Gemini2035@users.noreply.github.com
- * @LastEditTime: 2023-11-22 22:57:13
+ * @LastEditTime: 2023-11-25 17:41:55
  * @FilePath: /myBlog_versionVue/src/components/home/studyPart/aside_navi.vue
 -->
 <script setup lang="ts">
@@ -20,10 +20,7 @@ const asideClickMonitor = (event: any) => {
             if (!clickInfoString) continue;
             const clickInfo: ClickClass<ClickType, string | number> = JSON.parse(clickInfoString);
             if (clickInfo.clickType === 'close') StudyController.setSideNaviState(false);
-            else if (clickInfo.clickType === 'classify') {
-                StudyController.setMenuNum(clickInfo.clickParm as number);
-                StudyController.setSideNaviState(false);
-            }
+            else if (clickInfo.clickType === 'classify') StudyController.setMenuNum(clickInfo.clickParm as number);
             break;
         }
         catch { continue; }
@@ -44,7 +41,7 @@ const asideClickMonitor = (event: any) => {
             </div>
             <div class="menu-content">
                 <div v-for="item in StudyController.getMenuData()" :key="item.key" class="menu-item"
-                    :clickInfo="clickInfoFormat<number>('classify', item.key)">
+                    :clickInfo="clickInfoFormat<number>('classify', item.key)" :class="{ 'active': StudyController.getMenuNum() === item.key }">
                     <p>{{ item.title }}</p>
                     <p>{{ item.titleEn }}</p>
                 </div>
@@ -155,7 +152,7 @@ const asideClickMonitor = (event: any) => {
                 }
             }
 
-            .menu-item:hover {
+            .menu-item:hover, .menu-item.active {
                 cursor: pointer;
                 font-size: 200%;
                 font-weight: bold;
