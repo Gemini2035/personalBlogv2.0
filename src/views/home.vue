@@ -24,7 +24,7 @@ const changeToPage = (toPage: number) => {
                 <Navi />
                 <div class="divider" />
                 <div class="content">
-                    <router-view v-slot="{ Component }">
+                    <router-view #="{ Component }">
                         <Transition name="slide" mode="out-in">
                             <component :is="Component" />
                         </Transition>

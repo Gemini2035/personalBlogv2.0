@@ -7,7 +7,7 @@ import { reactive } from "vue";
  * @FilePath: /myBlog_versionVue/src/store/studyController.ts
  */
 
-type EssayMenuType = { title: string, titleEn: string, pubdate: string, classify: 0, id: string };
+type EssayMenuType = { [key: string]: string | number, title: string, titleEn: string, pubdate: string, classify: 0, id: string };
 class StudyController {
     private sideNavi = true;
     private searchState = false;
@@ -23,28 +23,13 @@ class StudyController {
     private passageMenu: Array<EssayMenuType> = [];
     private menuNum = -1; // 依视图送上到下分别为-1 0 1 2 3 4
     private isLoading = false;
-    private isSearching = false;
+    private showMoreResult = false;
 
     constructor() {
-        fetch('./src/data/essayMenu.json')
+        this.getPassageMenu()
             .then(result => {
-                console.log('111')
-                this.isLoading = true;
-                result.json()
-                .then((menuData: Array<EssayMenuType>) => {
-                    this.passageMenu = menuData;
-                    this.isLoading = false;
-                    while (this.searchResult.length < 5) {
-                        const essayRecommend: EssayMenuType = this.passageMenu[Math.floor(Math.random() * this.passageMenu.length)];
-                        if (this.searchResult.indexOf(essayRecommend) !== -1) continue;
-                        this.searchResult.push(essayRecommend);
-                    }
-                })
-            })
-            .catch(() => {
-                this.isLoading = false;
-                this.isSearching = false;
-                this.searchResult.length = 0;
+                this.passageMenu = result;
+                this.setSearchResult();
             })
     }
 
@@ -65,9 +50,44 @@ class StudyController {
         else this.searchState = target;
     }
 
-    getSearchResult(): Array<EssayMenuType> { return this.searchResult; }
+    getShowMoreResult(): boolean { return this.showMoreResult; }
 
-    getPassageMenu(): Array<EssayMenuType> { return this.passageMenu; }
+    getSearchResult(): Array<EssayMenuType> { return this.searchResult; }
+    setSearchResult(keyWord?: string): void {
+        const resultLength = 5;
+        this.searchResult.length = 0;
+        this.showMoreResult = false;
+        let result: Array<EssayMenuType> = [];
+        if (keyWord) {
+            result = this.passageMenu.filter(item => {
+                for (const key of Object.keys(item)) {
+                    try {
+                        if ((item[key] as string).indexOf(keyWord) !== -1) return true;
+                    } catch { continue; }
+                }
+            });
+            this.searchResult = result.slice(0, resultLength);
+        } else result = this.passageMenu;
+        if (result.length < resultLength) return;
+        this.showMoreResult = true;
+        while (this.searchResult.length < resultLength) {
+                const eassayInfo: EssayMenuType = result[Math.floor(Math.random() * result.length)];
+                if (this.searchResult.indexOf(eassayInfo) !== -1) continue;
+                this.searchResult.push(eassayInfo);
+        }
+    }
+
+    async getPassageMenu(): Promise<Array<EssayMenuType>> {
+        if (this.passageMenu.length) return Promise.resolve(this.passageMenu);
+        try {
+            const jsonData = await fetch('./src/data/essayMenu.json');
+            const resultArray = await jsonData.json();
+            this.isLoading = false;
+            return Promise.resolve(resultArray);
+        } catch {
+            return Promise.reject();
+        }
+    }
 }
 
 export default reactive(new StudyController());

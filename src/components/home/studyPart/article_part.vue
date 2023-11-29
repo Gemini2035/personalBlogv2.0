@@ -7,13 +7,16 @@
 <script lang="ts" setup>
 import ClickClass from '@/class/click_class';
 import StudyController from '@/store/studyController';
-import { computed } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 // 文章展示
-const articalShow = computed(() => {
-    const articleClassify: number = StudyController.getMenuNum();
-    if (articleClassify === -1) return StudyController.getPassageMenu();
-    return StudyController.getPassageMenu().filter(item => item.classify === articleClassify);
+type EssayMenuType = { title: string, titleEn: string, pubdate: string, classify: 0, id: string };
+const passageMenu = ref<Array<EssayMenuType>>();
+onMounted(async () => passageMenu.value = await StudyController.getPassageMenu());
+const showData = computed(() => {
+    const index: number = StudyController.getMenuNum();
+    if (index === -1) return passageMenu.value;
+    return passageMenu.value!.filter(item => item.classify === index);
 })
 
 // 事件代理
@@ -26,7 +29,8 @@ const articleClickMonitor = (event: any) => {
             if (!clickInfoString) continue;
             const clickInfo: ClickClass<ClickType, string | number> = JSON.parse(clickInfoString);
             if (clickInfo.clickType === 'close') StudyController.setSearchState(false);
-            
+            else if (clickInfo.clickType === 'detail') console.log(clickInfo.clickParm)
+            // TODO: 完善前往详情页面
             break;
         }
         catch { continue; }
@@ -35,28 +39,101 @@ const articleClickMonitor = (event: any) => {
 </script>
 
 <template>
-    <div class="airticle-container" :class="{ 'little': StudyController.getSearchState() }" @click="articleClickMonitor" :clickInto="clickInfoFormat<void>('close')">
-        <div>
-            {{ articalShow }}
-        </div>
+    <div class="airticle-container" :class="{ 'little': StudyController.getSearchState() }" @click="articleClickMonitor"
+        :clickInfo="clickInfoFormat<void>('close')">
+        <TransitionGroup name="list-animate">
+            <div v-for="(item, index) in showData" :key="index" class="menu-item" :clickInfo="clickInfoFormat<string>('detail', item.id)">
+                <p class="number">Passage {{ index + 1 }}</p>
+                <div class="divider" />
+                <p class="title">{{ item.title }}</p>
+                <p class="title-en">{{ item.titleEn }}</p>
+                <p class="date">{{ item.pubdate }}</p>
+            </div>
+        </TransitionGroup>
     </div>
 </template>
 
 <style lang="less" scoped>
-* { transition: 0.6s ease-in-out; }
+* {
+    transition: 0.6s ease-in-out;
+}
+
 .airticle-container {
     width: 100%;
     margin-left: auto;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    div {
-        background-color: yellow;
+
+    .menu-item {
+        margin-bottom: 1%;
+        text-align: center;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        max-width: 90%;
+
+        .number {
+            font-size: 250%;
+            font-weight: bold;
+        }
+
+        .divider {
+            width: 0;
+            height: 0;
+            border: 0px solid var(--ms-black);
+        }
+
+        .title {
+            font-size: 175%;
+            letter-spacing: 5px;
+            font-weight: bold;
+            min-width: 300px;
+        }
+
+        .title-en {
+            font-size: 150%;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        .date {
+            font-size: 125%;
+            margin-top: 1%;
+            font-weight: bold;
+        }
+    }
+
+    .menu-item:hover {
+        cursor: pointer;
+
+        .divider {
+            border: 1px solid var(--ms-black);
+            width: 100%;
+        }
     }
 }
 
 .airticle-container.little {
     width: 80%;
+}
+
+.list-animate-move,
+.list-anmate-enter-active,
+.list-animate-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-animate-enter-from,
+.list-animate-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.list-animate-leave-active {
+  position: absolute;
 }
 </style>

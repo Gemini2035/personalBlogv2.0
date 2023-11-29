@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import NaviController from '@/store/naviController';
 import StudyIntroController from '@/store/studyController';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 const openSearch = () => {
     if (StudyIntroController.getSearchState()) return;
@@ -20,11 +20,18 @@ const input = ref<HTMLElement | null>(null);
 const inputFocus = () => {
     window.setTimeout(() => input.value?.focus(), 10);
 }
-
-const enterPress = () => {
-    input.value?.blur();
-    console.log(inputContent.value);
+const inputChangeHandle = () => {
+    StudyIntroController.setSearchResult(inputContent.value);
 }
+
+watch(
+    () => inputContent.value,
+    () => inputChangeHandle()
+)
+
+const enterPress = () => input.value?.blur();
+
+
 
 // 按键监听器
 type PressType = 'Slash' | 'Enter';
@@ -47,7 +54,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="search-container" :class="{ 'close': !StudyIntroController.getSearchState(), 'hidden': NaviController.getNaviState() }">
+    <div class="search-container"
+        :class="{ 'close': !StudyIntroController.getSearchState(), 'hidden': NaviController.getNaviState() }">
         <div class="search-title" @click="openSearch">
             <div class="search-icon" />
             <p class="title-text">搜索</p>
@@ -58,7 +66,21 @@ onUnmounted(() => {
             <button class="input-btn">开始</button>
         </div>
         <div class="search-answer">
-            qqq
+            <template v-if="StudyIntroController.getSearchResult().length">
+                <TransitionGroup>
+                    <div v-for="(item, index) in StudyIntroController.getSearchResult()" :key="index" class="result-item">
+                        <div class="arrow">
+                            <div class="horizontal" />
+                            <div class="left-arrow" />
+                        </div>
+                        <p class="content">{{ item.title }}</p>
+                    </div>
+                </TransitionGroup>
+                <p v-show="StudyIntroController.getShowMoreResult()" class="show-more" @click="inputChangeHandle">
+                    换一批
+                </p>
+            </template>
+            <p v-else>暂无更多</p>
         </div>
     </div>
 </template>
@@ -114,6 +136,83 @@ onUnmounted(() => {
             font-size: 175%;
             margin: 0;
             margin-right: 10%;
+        }
+    }
+
+    .search-answer {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: center;
+        margin: auto;
+        width: 100%;
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            margin-bottom: 5%;
+            padding-right: 3%;
+            width: 95%;
+
+            .arrow {
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+
+                .horizontal {
+                    height: 0;
+                    width: 10px;
+                    border: 1px solid var(--ms-black);
+                    transform: translate3d(5px, 0, 0);
+                }
+
+                .left-arrow {
+                    --border-width: 2px;
+                    height: 10px;
+                    width: 10px;
+                    border-right: var(--border-width) solid var(--ms-black);
+                    border-bottom: var(--border-width) solid var(--ms-black);
+                    transform: rotate3d(0, 0, 1, -45deg);
+                }
+            }
+
+            .content {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+
+        .result-item:hover {
+            transition: none;
+            cursor: pointer;
+            transform: translate3d(-5px, -5px, 0);
+            text-shadow: 5px 5px var(--mask-color-light);
+
+            .content {
+                letter-spacing: 1px;
+                font-weight: bold;
+            }
+
+            .arrow {
+                animation: HoverAnimate 1.5s linear infinite;
+
+                @keyframes HoverAnimate {
+                    50% {
+                        scale: 0.7;
+                        transform: rotate3d(1, 0, 0, 360deg) translate3d(-10px, 0, 0);
+                    }
+                }
+            }
+        }
+
+        .show-more {
+            cursor: pointer;
+            padding-right: 1%;
+        }
+        .show-more:hover {
+            text-decoration: underline;
         }
     }
 
@@ -175,5 +274,4 @@ onUnmounted(() => {
     opacity: 0;
     z-index: -1;
 }
-
 </style>
