@@ -67,20 +67,19 @@ onUnmounted(() => {
         </div>
         <div class="search-answer">
             <template v-if="StudyIntroController.getSearchResult().length">
-                <TransitionGroup>
-                    <div v-for="(item, index) in StudyIntroController.getSearchResult()" :key="index" class="result-item">
-                        <div class="arrow">
-                            <div class="horizontal" />
-                            <div class="left-arrow" />
-                        </div>
-                        <p class="content">{{ item.title }}</p>
+                <div v-for="(item, index) in StudyIntroController.getSearchResult()" :key="index" class="result-item">
+                    <div class="arrow">
+                        <div class="horizontal" />
+                        <div class="left-arrow" />
                     </div>
-                </TransitionGroup>
+                    <p class="content">{{ item.title }}</p>
+                </div>
+
                 <p v-show="StudyIntroController.getShowMoreResult()" class="show-more" @click="inputChangeHandle">
                     换一批
                 </p>
             </template>
-            <p v-else>暂无更多</p>
+            <p v-else class="empty">暂无更多</p>
         </div>
     </div>
 </template>
@@ -136,6 +135,7 @@ onUnmounted(() => {
             font-size: 175%;
             margin: 0;
             margin-right: 10%;
+            cursor: default;
         }
     }
 
@@ -146,7 +146,6 @@ onUnmounted(() => {
         justify-content: center;
         margin: auto;
         width: 100%;
-
         .result-item {
             display: flex;
             align-items: center;
@@ -183,7 +182,6 @@ onUnmounted(() => {
                 white-space: nowrap;
             }
         }
-
         .result-item:hover {
             transition: none;
             cursor: pointer;
@@ -206,7 +204,6 @@ onUnmounted(() => {
                 }
             }
         }
-
         .show-more {
             cursor: pointer;
             padding-right: 1%;
@@ -214,6 +211,14 @@ onUnmounted(() => {
         .show-more:hover {
             text-decoration: underline;
         }
+        .empty {
+            width: 100%;
+            text-align: center;
+            font-size: 125%;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        
     }
 
     .input-content {
@@ -270,7 +275,6 @@ onUnmounted(() => {
 }
 
 .search-container.hidden {
-    background-color: red;
     opacity: 0;
     z-index: -1;
 }

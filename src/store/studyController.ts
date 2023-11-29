@@ -26,11 +26,13 @@ class StudyController {
     private showMoreResult = false;
 
     constructor() {
+        this.isLoading = true;
         this.getPassageMenu()
             .then(result => {
                 this.passageMenu = result;
                 this.setSearchResult();
             })
+            .finally(() => this.isLoading = false)
     }
 
     getSideNaviState(): boolean { return this.sideNavi; }
@@ -62,7 +64,7 @@ class StudyController {
             result = this.passageMenu.filter(item => {
                 for (const key of Object.keys(item)) {
                     try {
-                        if ((item[key] as string).indexOf(keyWord) !== -1) return true;
+                        return new RegExp(keyWord, 'i').test(item[key] as string);
                     } catch { continue; }
                 }
             });
@@ -85,7 +87,7 @@ class StudyController {
             this.isLoading = false;
             return Promise.resolve(resultArray);
         } catch {
-            return Promise.reject();
+            return Promise.reject([]);
         }
     }
 }

@@ -18,7 +18,8 @@ const router = createRouter({
                 { path: '', name: 'emptyChild', redirect: '/home/self_introduction' },
                 { path: 'self_introduction', name: 'selfPart', component: () => import('../components/home/self_part.vue') },
                 { path: 'site_introduction', name: 'sitePart', component: () => import('../components/home/site_part.vue') },
-                { path: 'study_log', name:'studyLog', component: () => import('../components/home/study_part.vue') }
+                { path: 'study_log', name: 'studyLog', component: () => import('../components/home/study_part.vue') },
+                { path: 'essay_detail', name: 'essayDetail', component: () => import('../components/home/essay_detail.vue') }
             ]
         }
     ]

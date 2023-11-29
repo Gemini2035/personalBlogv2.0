@@ -6,7 +6,9 @@
 -->
 <script lang="ts" setup>
 import ClickClass from '@/class/click_class';
+import router from '@/routes';
 import StudyController from '@/store/studyController';
+import EssayInfo from './essay_info.vue';
 import { ref, onMounted, computed } from 'vue';
 
 // 文章展示
@@ -21,7 +23,6 @@ const showData = computed(() => {
 
 // 事件代理
 type ClickType = 'close' | 'detail';
-const clickInfoFormat = <T>(type: ClickType, target?: T) => { return new ClickClass<ClickType, T>(type, target).stringify(); }
 const articleClickMonitor = (event: any) => {
     for (let everyNode of event.composedPath()) {
         try {
@@ -29,8 +30,11 @@ const articleClickMonitor = (event: any) => {
             if (!clickInfoString) continue;
             const clickInfo: ClickClass<ClickType, string | number> = JSON.parse(clickInfoString);
             if (clickInfo.clickType === 'close') StudyController.setSearchState(false);
-            else if (clickInfo.clickType === 'detail') console.log(clickInfo.clickParm)
-            // TODO: 完善前往详情页面
+            else if (clickInfo.clickType === 'detail') {
+                console.log(clickInfo.clickParm);
+                router.push({ name: 'essayDetail', query: JSON.parse(clickInfo.clickParm as string) });
+                // TODO: 完善前往详情页面
+            }
             break;
         }
         catch { continue; }
@@ -40,15 +44,9 @@ const articleClickMonitor = (event: any) => {
 
 <template>
     <div class="airticle-container" :class="{ 'little': StudyController.getSearchState() }" @click="articleClickMonitor"
-        :clickInfo="clickInfoFormat<void>('close')">
+        :clickInfo="new ClickClass<ClickType, void>('close').stringify()">
         <TransitionGroup name="list-animate">
-            <div v-for="(item, index) in showData" :key="index" class="menu-item" :clickInfo="clickInfoFormat<string>('detail', item.id)">
-                <p class="number">Passage {{ index + 1 }}</p>
-                <div class="divider" />
-                <p class="title">{{ item.title }}</p>
-                <p class="title-en">{{ item.titleEn }}</p>
-                <p class="date">{{ item.pubdate }}</p>
-            </div>
+            <EssayInfo v-for="(item, index) in showData" :key="index" :clickInfo="new ClickClass<ClickType, string>('detail', JSON.stringify(item)).stringify()" :index="index" :title="item.title" :titleEn="item.titleEn" :pubdate="item.pubdate" />
         </TransitionGroup>
     </div>
 </template>
@@ -124,16 +122,16 @@ const articleClickMonitor = (event: any) => {
 .list-animate-move,
 .list-anmate-enter-active,
 .list-animate-leave-active {
-  transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .list-animate-enter-from,
 .list-animate-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
+    opacity: 0;
+    transform: translateX(30px);
 }
 
 .list-animate-leave-active {
-  position: absolute;
+    position: absolute;
 }
 </style>

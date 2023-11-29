@@ -68,8 +68,6 @@ const clickMonitor = (event: any) => {
     } else if (clickInfo.clickType === 'theme') { BasicSettings.setIsDark(); }
 }
 
-const clickInfoFormat = <T>(type: ClickType, target?: T) => { return new ClickClass<ClickType, T>(type, target).stringify(); }
-
 </script>
 
 <template>
@@ -77,19 +75,19 @@ const clickInfoFormat = <T>(type: ClickType, target?: T) => { return new ClickCl
         <div class="navi-tips">
             <div class="button-group">
                 <div class="site-logo">
-                    <img :src="siteIconUrl" alt="返回" :clickInfo="clickInfoFormat<void>('back')">
+                    <img :src="siteIconUrl" alt="返回" :clickInfo="new ClickClass<ClickType, void>('back').stringify()">
                 </div>
-                <div class="theme-button"><img :src="themeButtonUrl" alt="主题" :clickInfo="clickInfoFormat<void>('theme')"></div>
+                <div class="theme-button"><img :src="themeButtonUrl" alt="主题" :clickInfo="new ClickClass<ClickType, void>('theme').stringify()"></div>
             </div>
             <p class="timer">{{ NaviController.getTime() }}</p>
         </div>
         <div class="maintain-container">
             <div v-for="item in naviData" :key="item.key" class="navi-item"
                 :style="{ backgroundColor: isFocus ? item.color : 'transparent' }"
-                :clickInfo="isFocus ? clickInfoFormat<number>('change', item.key) : undefined">
+                :clickInfo="isFocus ? new ClickClass<ClickType, number>('change', item.key).stringify() : undefined">
                 <div class="title-group">
                     <h1 class="title" :class="NaviController.isActive(item.key) ? 'active' : ''"
-                        :clickInfo="clickInfoFormat<number>('change', item.key)">{{ item.name }}</h1>
+                        :clickInfo="new ClickClass<ClickType, number>('change', item.key).stringify()">{{ item.name }}</h1>
                     <div class="divider" />
                     <h1 class="title-en">{{ item.nameEn }}</h1>
                 </div>
