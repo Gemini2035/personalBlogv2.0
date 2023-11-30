@@ -38,10 +38,6 @@ const componentsList = [InfoContent, ContactContent];
 </template>
 
 <style lang="less" scoped>
-* {
-    transition: 0.6s ease-in-out;
-}
-
 .self-container {
     width: 100%;
     height: 100%;

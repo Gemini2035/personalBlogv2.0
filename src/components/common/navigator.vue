@@ -19,7 +19,6 @@ const naviData: ReadonlyArray<{ name: string, nameEn: string, key: number, color
 ];
 
 const routes = useRoute();
-
 const isFocus = computed(() => { return NaviController.getNaviState() });
 
 
@@ -58,6 +57,7 @@ const clickMonitor = (event: any) => {
         if (!clickInfo.clickParm) {
             NaviController.setNaviState(true);
             StudyController.setMenuNum(0);
+            NaviController.setPageNum(2);
             StudyController.setSideNaviState(false);
         }
     } else if (clickInfo.clickType === 'change') {
@@ -97,10 +97,6 @@ const clickMonitor = (event: any) => {
 </template>
 
 <style lang="less" scoped>
-* {
-    transition: 0.6s ease-in-out;
-}
-
 .navi-container {
     height: 100%;
 

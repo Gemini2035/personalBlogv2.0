@@ -4,8 +4,8 @@ const props = defineProps<{ index?: number, title: string, titleEn: string, pubd
 
 <template>
     <div class="menu-item">
-        <p class="number" v-if="props.index">Passage {{ props.index + 1 }}</p>
-        <div class="divider" />
+        <p class="number" v-if="props.index !== undefined">Passage {{ props.index + 1 }}</p>
+        <div class="divider" v-if="props.index !== undefined" />
         <p class="title">{{ props.title }}</p>
         <p class="title-en">{{ props.titleEn }}</p>
         <p class="date">{{ props.pubdate }}</p>
@@ -13,7 +13,6 @@ const props = defineProps<{ index?: number, title: string, titleEn: string, pubd
 </template>
 
 <style lang="less" scoped>
-* { transition: 0.6s ease-in-out;}
 .menu-item {
     margin-bottom: 1%;
     text-align: center;

@@ -41,10 +41,6 @@ const scrollBehavior = () => {
 </template>
 
 <style lang="less" scoped>
-* {
-    transition: 0.6s ease-in-out;
-}
-
 .site-container {
     width: 100%;
     height: 100%;

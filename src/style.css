@@ -1,4 +1,15 @@
 /* 放置根结点节点样式 */
+* {
+  scroll-behavior: smooth;
+  transition: 0.6s ease-in-out;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
   font-family: "Helvetica", "Arial", sans-serif;
   line-height: 1.5;
@@ -12,12 +23,12 @@
   --mask-color-light: rgba(128, 128, 128, 0.3);
 }
 
-body{
+body {
   margin: 0;
   padding: 0;
   /* min-width: 1440px; */
 }
 
-#app{
+#app {
   overflow: hidden;
 }

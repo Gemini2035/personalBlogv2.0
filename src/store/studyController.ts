@@ -1,4 +1,3 @@
-import { reactive } from "vue";
 
 /*
  * @Date: 2023-11-20 20:49:00
@@ -6,8 +5,11 @@ import { reactive } from "vue";
  * @LastEditTime: 2023-11-25 17:52:21
  * @FilePath: /myBlog_versionVue/src/store/studyController.ts
  */
+import { reactive } from "vue";
+import QueryInfo from "@/class/query_info";
 
 type EssayMenuType = { [key: string]: string | number, title: string, titleEn: string, pubdate: string, classify: 0, id: string };
+
 class StudyController {
     private sideNavi = true;
     private searchState = false;
@@ -24,6 +26,7 @@ class StudyController {
     private menuNum = -1; // 依视图送上到下分别为-1 0 1 2 3 4
     private isLoading = false;
     private showMoreResult = false;
+    private queryInfo = new QueryInfo();
 
     constructor() {
         this.isLoading = true;
@@ -33,6 +36,20 @@ class StudyController {
                 this.setSearchResult();
             })
             .finally(() => this.isLoading = false)
+    }
+
+    getIsLoading(): boolean { return this.isLoading; }
+    setIsLoading(target?: boolean): void {
+        if (target === undefined) this.isLoading = !this.isLoading;
+        else this.isLoading = target;
+    }
+
+    getQueryData(): QueryInfo { return this.queryInfo; }
+    setQueryData(page?: number, size?: number): void {
+        Object.assign(this.queryInfo, new QueryInfo(
+            page === undefined ? this.queryInfo.page + 1 : page,
+            size === undefined ? this.queryInfo.size : size
+        ))
     }
 
     getSideNaviState(): boolean { return this.sideNavi; }
@@ -73,9 +90,9 @@ class StudyController {
         if (result.length < resultLength) return;
         this.showMoreResult = true;
         while (this.searchResult.length < resultLength) {
-                const eassayInfo: EssayMenuType = result[Math.floor(Math.random() * result.length)];
-                if (this.searchResult.indexOf(eassayInfo) !== -1) continue;
-                this.searchResult.push(eassayInfo);
+            const eassayInfo: EssayMenuType = result[Math.floor(Math.random() * result.length)];
+            if (this.searchResult.indexOf(eassayInfo) !== -1) continue;
+            this.searchResult.push(eassayInfo);
         }
     }
 

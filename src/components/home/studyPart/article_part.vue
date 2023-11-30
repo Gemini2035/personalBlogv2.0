@@ -9,20 +9,51 @@ import ClickClass from '@/class/click_class';
 import router from '@/routes';
 import StudyController from '@/store/studyController';
 import EssayInfo from './essay_info.vue';
-import { ref, onMounted, computed } from 'vue';
+import ToTop from '@/components/common/toTop.vue';
+import { ref, onMounted, computed, onUnmounted } from 'vue';
 
 // 文章展示
 type EssayMenuType = { title: string, titleEn: string, pubdate: string, classify: 0, id: string };
 const passageMenu = ref<Array<EssayMenuType>>();
 onMounted(async () => passageMenu.value = await StudyController.getPassageMenu());
-const showData = computed(() => {
+const filterData = computed(() => {
     const index: number = StudyController.getMenuNum();
     if (index === -1) return passageMenu.value;
-    return passageMenu.value!.filter(item => item.classify === index);
+    return passageMenu.value?.filter(item => item.classify === index) || [];
+})
+// 分页处理
+const ArticleContainerRef = ref<HTMLElement | null>(null);
+const queryInfo = computed(() => { return StudyController.getQueryData() });
+const showData = computed(() => { return filterData.value?.slice(0, ((queryInfo.value.page + 1) * queryInfo.value.size)); });
+const isEnd = computed(() => { return showData.value?.length === filterData.value?.length; })
+const reachBottom = () => {
+    StudyController.setIsLoading(true);
+    window.setTimeout(() => {
+        StudyController.setQueryData();
+        StudyController.setIsLoading(false);
+    }, 600);
+    showTop.value = true;
+}
+const scrollMonitor = (e: any) => {
+    const containerHeight = document.body.clientHeight || document.documentElement.clientHeight;
+    const contentHeight = ArticleContainerRef.value!.scrollHeight || 1;
+    const scrollTop = e.target.scrollTop;
+    if (scrollTop + containerHeight > contentHeight - 10) {
+        if (StudyController.getIsLoading() || isEnd.value) return;
+        reachBottom();
+    }
+}
+
+onMounted(() => {
+    window.addEventListener('scroll', scrollMonitor, true);
+})
+onUnmounted(() => {
+    window.removeEventListener('scroll', scrollMonitor, true);
 })
 
+
 // 事件代理
-type ClickType = 'close' | 'detail';
+type ClickType = 'close' | 'detail' | 'eclipse';
 const articleClickMonitor = (event: any) => {
     for (let everyNode of event.composedPath()) {
         try {
@@ -30,38 +61,52 @@ const articleClickMonitor = (event: any) => {
             if (!clickInfoString) continue;
             const clickInfo: ClickClass<ClickType, string | number> = JSON.parse(clickInfoString);
             if (clickInfo.clickType === 'close') StudyController.setSearchState(false);
-            else if (clickInfo.clickType === 'detail') {
-                console.log(clickInfo.clickParm);
-                router.push({ name: 'essayDetail', query: JSON.parse(clickInfo.clickParm as string) });
-                // TODO: 完善前往详情页面
-            }
+            else if (clickInfo.clickType === 'detail') router.push({ name: 'essayDetail', query: JSON.parse(clickInfo.clickParm as string) });
+            else if (clickInfo.clickType === 'eclipse') {
+                StudyController.setQueryData(0);
+                showTop.value = false;
+                backToTop();
+            };
             break;
         }
         catch { continue; }
     }
 }
+// 返回顶部
+const showTop = ref(false);
+const backToTop = () => {
+    ArticleContainerRef.value?.scrollIntoView({ behavior: 'smooth' });
+    showTop.value = false;
+}
 </script>
 
 <template>
-    <div class="airticle-container" :class="{ 'little': StudyController.getSearchState() }" @click="articleClickMonitor"
-        :clickInfo="new ClickClass<ClickType, void>('close').stringify()">
+    <div class="article-container" :class="{ 'little': StudyController.getSearchState() }" @click="articleClickMonitor"
+        :clickInfo="new ClickClass<ClickType, void>('close').stringify()" ref="ArticleContainerRef">
         <TransitionGroup name="list-animate">
-            <EssayInfo v-for="(item, index) in showData" :key="index" :clickInfo="new ClickClass<ClickType, string>('detail', JSON.stringify(item)).stringify()" :index="index" :title="item.title" :titleEn="item.titleEn" :pubdate="item.pubdate" />
+            <EssayInfo v-for="(item, index) in showData" :key="index"
+                :clickInfo="new ClickClass<ClickType, string>('detail', JSON.stringify(item)).stringify()" :index="index"
+                :title="item.title" :titleEn="item.titleEn" :pubdate="item.pubdate" />
         </TransitionGroup>
+        <div class="is-loading" v-show="StudyController.getIsLoading()">加载中......</div>
+        <div class="no-more" v-if="isEnd">
+            <span>没有更多了</span>
+            <span class="eclipse" :clickInfo="new ClickClass<ClickType, void>('eclipse').stringify()">收起</span>
+        </div>
+        <ToTop :show="showTop" @click="backToTop" />
     </div>
 </template>
 
 <style lang="less" scoped>
-* {
-    transition: 0.6s ease-in-out;
-}
-
-.airticle-container {
+.article-container {
     width: 100%;
     margin-left: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    overflow: auto;
+    scroll-behavior: smooth;
 
     .menu-item {
         margin-bottom: 1%;
@@ -113,9 +158,40 @@ const articleClickMonitor = (event: any) => {
             width: 100%;
         }
     }
+
+    .is-loading {
+        font-weight: bold;
+        animation: LoadingAnimate 1.5s infinite;
+
+        @keyframes LoadingAnimate {
+            50% {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .no-more {
+        text-align: center;
+        font-size: 125%;
+        font-weight: bold;
+        width: 100%;
+        border-top: 1px solid var(--ms-black);
+        cursor: default;
+
+        .eclipse {
+            margin-left: 1%;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .eclipse:hover {
+            color: var(--ms-black);
+            text-decoration: underline;
+        }
+    }
 }
 
-.airticle-container.little {
+.article-container.little {
     width: 80%;
 }
 
@@ -133,5 +209,4 @@ const articleClickMonitor = (event: any) => {
 
 .list-animate-leave-active {
     position: absolute;
-}
-</style>
+}</style>

@@ -28,10 +28,6 @@ import SelfIntroController from '@/store/selfIntroController';
 </template>
 
 <style lang="less" scoped>
-* {
-    transition: 0.6s ease-in-out;
-}
-
 .info-content {
     width: 100%;
     height: 100%;

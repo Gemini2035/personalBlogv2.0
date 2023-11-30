@@ -67,7 +67,6 @@ const scrollMonitor = () => {
 
 <style lang="less" scoped>
 * {
-    transition: 0.6s ease-in-out;
     cursor: default;
 }
 
@@ -157,7 +156,6 @@ const scrollMonitor = () => {
             border-top: 2px solid;
             overflow-y: auto;
             overflow-x: hidden;
-            scrollbar-width: thin;
 
             .timeline-item {
                 margin-bottom: 5%;
@@ -231,10 +229,6 @@ const scrollMonitor = () => {
             .timeline-item:last-child {
                 margin-bottom: 15%;
             }
-        }
-
-        .timeline-content::-webkit-scrollbar {
-            display: none;
         }
     }
 

@@ -8,12 +8,13 @@
 import NaviController from '@/store/naviController';
 import StudyIntroController from '@/store/studyController';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
+import ClickClass from '@/class/click_class';
+import { useRouter } from 'vue-router';
 
 const openSearch = () => {
     if (StudyIntroController.getSearchState()) return;
     StudyIntroController.setSearchState(true);
 }
-
 // input事件
 const inputContent = ref<string>('');
 const input = ref<HTMLElement | null>(null);
@@ -23,15 +24,27 @@ const inputFocus = () => {
 const inputChangeHandle = () => {
     StudyIntroController.setSearchResult(inputContent.value);
 }
-
 watch(
     () => inputContent.value,
     () => inputChangeHandle()
 )
-
 const enterPress = () => input.value?.blur();
 
-
+// 事件代理
+type ClickType = 'detail';
+const router = useRouter();
+const clickMonitor = (event: any) => {
+    for (let everyNode of event.composedPath()) {
+        try {
+            const clickInfoString = everyNode.getAttribute('clickInfo');
+            if (!clickInfoString) continue;
+            const clickInfo: ClickClass<ClickType, string | number> = JSON.parse(clickInfoString);
+            if (clickInfo.clickType === 'detail') router.push({ name: 'essayDetail', query: JSON.parse(clickInfo.clickParm as string) });
+            break;
+        }
+        catch { continue; }
+    }
+}
 
 // 按键监听器
 type PressType = 'Slash' | 'Enter';
@@ -65,9 +78,9 @@ onUnmounted(() => {
             <input class="search-input" ref="input" v-model="inputContent" />
             <button class="input-btn">开始</button>
         </div>
-        <div class="search-answer">
+        <div class="search-answer" @click="clickMonitor">
             <template v-if="StudyIntroController.getSearchResult().length">
-                <div v-for="(item, index) in StudyIntroController.getSearchResult()" :key="index" class="result-item">
+                <div v-for="(item, index) in StudyIntroController.getSearchResult()" :key="index" class="result-item" :clickInfo="new ClickClass<ClickType, string>('detail', JSON.stringify(item)).stringify()">
                     <div class="arrow">
                         <div class="horizontal" />
                         <div class="left-arrow" />
@@ -85,10 +98,6 @@ onUnmounted(() => {
 </template>
 
 <style lang="less" scoped>
-* {
-    transition: 0.6s ease-in-out;
-}
-
 .search-container {
     z-index: 1;
     position: fixed;
@@ -237,18 +246,18 @@ onUnmounted(() => {
             padding-left: 1%;
             font-size: 150%;
             border-radius: 0;
-            width: 80%;
             margin: 1% 0;
+            width: 75%;
             background-color: transparent;
         }
 
         .input-btn {
-            width: 20%;
             outline: none;
             border: 0;
             font-size: 125%;
             font-weight: bold;
             background-color: transparent;
+            min-width: 60px;
         }
     }
 }

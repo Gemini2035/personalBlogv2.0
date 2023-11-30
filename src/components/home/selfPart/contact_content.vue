@@ -42,10 +42,6 @@ import SelfIntroController from '@/store/selfIntroController';
 </template>
 
 <style lang="less" scoped>
-* {
-    transition: 0.6s ease-in-out;
-}
-
 .contact-content {
     background-color: var(--ms-white);
     height: 100%;

@@ -8,7 +8,7 @@
 
 import WellcomePart from '../components/home/welcome.vue';
 import NaviController from '../store/naviController';
-import Navi from '../components/navi/navigator.vue';
+import Navi from '../components/common/navigator.vue';
 
 const changeToPage = (toPage: number) => {
     NaviController.setPageNum(toPage);

@@ -46,10 +46,6 @@ onUnmounted(() => window.removeEventListener('resize', () => resizeBehavior()))
 </template>
 
 <style lang="less" scoped>
-* {
-    transition: 0.6s ease-in-out;
-}
-
 .contributor-container {
     width: 100%;
 

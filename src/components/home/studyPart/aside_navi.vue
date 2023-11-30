@@ -20,7 +20,11 @@ const asideClickMonitor = (event: any) => {
             if (!clickInfoString) continue;
             const clickInfo: ClickClass<ClickType, string | number> = JSON.parse(clickInfoString);
             if (clickInfo.clickType === 'close') StudyController.setSideNaviState(false);
-            else if (clickInfo.clickType === 'classify') StudyController.setMenuNum(clickInfo.clickParm as number);
+            else if (clickInfo.clickType === 'classify') {
+                StudyController.setIsLoading(false);
+                StudyController.setQueryData(0);
+                StudyController.setMenuNum(clickInfo.clickParm as number);
+            }
             break;
         }
         catch { continue; }
@@ -41,7 +45,8 @@ const asideClickMonitor = (event: any) => {
             </div>
             <div class="menu-content">
                 <div v-for="item in StudyController.getMenuData()" :key="item.key" class="menu-item"
-                    :clickInfo="clickInfoFormat<number>('classify', item.key)" :class="{ 'active': StudyController.getMenuNum() === item.key }">
+                    :clickInfo="clickInfoFormat<number>('classify', item.key)"
+                    :class="{ 'active': StudyController.getMenuNum() === item.key }">
                     <p>{{ item.title }}</p>
                     <p>{{ item.titleEn }}</p>
                 </div>
@@ -51,10 +56,6 @@ const asideClickMonitor = (event: any) => {
 </template>
 
 <style lang="less" scoped>
-* {
-    transition: 0.6s ease-in-out;
-}
-
 .aside-navi {
     position: fixed;
     background-color: var(--mask-color-light);
@@ -152,7 +153,8 @@ const asideClickMonitor = (event: any) => {
                 }
             }
 
-            .menu-item:hover, .menu-item.active {
+            .menu-item:hover,
+            .menu-item.active {
                 cursor: pointer;
                 font-size: 200%;
                 font-weight: bold;
