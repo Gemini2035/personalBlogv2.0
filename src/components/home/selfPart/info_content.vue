@@ -12,7 +12,7 @@ import SelfIntroController from '@/store/selfIntroController';
     <div class="info-content">
         <div class="info-list">
             <div v-for="item in SelfIntroController.getInfoList()" class="info-item" :key="item.key">
-                <div class="content-box">
+                <div class="content-box" :class="{ 'small': item.key + 1 === SelfIntroController.getInfoList().length}">
                     <p class="title-text">{{ item.title }}</p>
                     <p class="titleEn-text">{{ item.titleEn }}</p>
                     <p class="content-text">{{ item.content }}</p>
@@ -70,9 +70,15 @@ import SelfIntroController from '@/store/selfIntroController';
 
                 .content-text {
                     font-size: 200%;
-                    max-width: 40vw;
+                    max-width: 30vw;
                     position: absolute;
                     min-width: 225px;
+                }
+            }
+
+            .content-box.small {
+                .content-text {
+                    font-size: 125%;
                 }
             }
 
