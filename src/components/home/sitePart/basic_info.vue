@@ -46,7 +46,7 @@ import Structure from './basicInfo/structure.vue';
 
         .structure-content {
             width: 100%;
-            height: calc(40% -1px);
+            height: calc(40% - 1px);
             border-top: 1px solid;
         }
     }

@@ -30,8 +30,6 @@ const getDirectionClass = (target: number) => { return classNameSet[target % 3];
 <style lang="less" scoped>
 .tool-container {
     width: 100%;
-    height: 100%;
-
     .title {
         font-size: 250%;
         font-weight: bold;

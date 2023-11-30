@@ -39,16 +39,13 @@ onUnmounted(() => window.removeEventListener('resize', () => resizeBehavior()))
                 </div>
             </div>
         </div>
-        <!-- <div class="name-wall" :style="{ willChange: 'transform', height: `calc(92vh - ${nameWallHeight}px)`, transform: `translate3d(0, ${ transformPercentage }%, 0)` }">
-            <p class="text">{{ wallString }}</p>
-        </div> -->
     </div>
 </template>
 
 <style lang="less" scoped>
 .contributor-container {
     width: 100%;
-
+    margin-top: 3%;
     .top-area {
         width: 100%;
 
@@ -70,10 +67,11 @@ onUnmounted(() => window.removeEventListener('resize', () => resizeBehavior()))
 
             .contributor-item {
                 width: calc(100% / 3 - 6%);
+                min-width: 300px;
                 padding: 0 3%;
 
                 a {
-                    width: 80%;
+                    width: 100%;
                     display: flex;
                     margin: auto;
                     text-decoration: none;

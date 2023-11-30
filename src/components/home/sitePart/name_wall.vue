@@ -16,12 +16,11 @@ import SiteIntroController from '@/store/siteIntroController';
 
 <style lang="less" scoped>
 .name-wall {
-    width: calc(90%);
+    width: 100%;
     min-height: 100%;
     margin: 1% auto 0 auto;
     background-color: var(--ms-black);
     color: var(--ms-white);
-    transform: translate3d(0, 10px, 10px);
     position: relative;
 
     .text {

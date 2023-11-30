@@ -51,7 +51,7 @@ import SiteIntroController from '@/store/siteIntroController';
                 text-decoration: none;
 
                 img {
-                    width: 40%;
+                    width: 36%;
                     height: auto;
                 }
 
@@ -59,6 +59,7 @@ import SiteIntroController from '@/store/siteIntroController';
                     font-size: 150%;
                     font-weight: bold;
                     color: #000;
+                    margin: 0;
                 }
 
             }

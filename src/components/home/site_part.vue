@@ -17,12 +17,6 @@ const componentsList = [{ component: BasicInfo, name: 'basicInfo' }, { component
 let Timer: number | undefined = undefined;
 let monitorForbidden = false;
 const siteContainer = ref<HTMLElement | null>(null);
-const scrollMonitor = async () => {
-    SiteIntroController.setGlobalScrollTop(siteContainer.value!.scrollTop);
-    if (monitorForbidden) return;
-    clearTimeout(Timer);
-    Timer = window.setTimeout(() => scrollBehavior(), 600);
-}
 const scrollBehavior = () => {
     const windowHeight = window.innerHeight;
     const scrolltop = SiteIntroController.getGlobalScrollTop();
@@ -35,7 +29,7 @@ const scrollBehavior = () => {
 </script>
 
 <template>
-    <div class="site-container" @scroll="scrollMonitor" ref="siteContainer">
+    <div class="site-container" ref="siteContainer">
         <component v-for="(item, index) in componentsList" :is="item.component" :key="index" :id="item.name" />
     </div>
 </template>
@@ -46,7 +40,5 @@ const scrollBehavior = () => {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    transform-style: preserve-3d;
-    perspective: 100px;
 }
 </style>
