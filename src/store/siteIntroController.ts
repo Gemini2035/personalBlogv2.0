@@ -50,7 +50,7 @@ class SiteIntroController {
     ];
     getGlobalScrollTop (): number { return this.globalScrollTop; }
     setGlobalScrollTop (target: number): void { this.globalScrollTop = target; }
-    getLanguageData (): Array<{ name: string, percentage: string, key: number }> { return this.languageData.toSorted((a, b) => { return Number(b.percentage) - Number(a.percentage); }); }
+    getLanguageData (): Array<{ name: string, percentage: string, key: number }> { return this.languageData.sort((a, b) => { return Number(b.percentage) - Number(a.percentage); }); }
     getTipsList (): Array<{ tipsEn: string, key: number }> { return this.tipsList }
     getTimeLineList (): Array<{ time: string, status: 'done' | 'dealing' | 'future', content: string, contentEn: string }> { return this.timeLineList; }
     getTimeLinePercentage (): Array<number> {
