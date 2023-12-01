@@ -12,7 +12,7 @@ import SelfIntroController from '@/store/selfIntroController';
     <div class="contact-content">
         <div class="img-container">
             <a href="https://apod.nasa.gov/apod/ap230910.html" target="_blank">
-                <img src="src/assets/self/contactImg.jpg" alt="placehold img" title="显示源地址"></a>
+                <img src="@/assets/self/contactImg.jpg" alt="placehold img" title="显示源地址"></a>
         </div>
         <div class="maintain-container">
             <div class="title-content">

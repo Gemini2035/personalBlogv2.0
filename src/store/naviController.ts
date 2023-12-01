@@ -10,8 +10,8 @@ import { RouteRecordRaw } from 'vue-router';
 import SelfIntroController from './selfIntroController';
 
 class NaviController {
-    private pageNum = 4; // 0:welcome页面、1:导航界面、2:自我介绍、3:站点介绍、4:学习记录
-    private naviState = false;
+    private pageNum = 0; // 0:welcome页面、1:导航界面、2:自我介绍、3:站点介绍、4:学习记录
+    private naviState = true;
     private bgcolor = 'rgba(255, 255, 255, 1)';
     private fcolor = 'rgba(0, 0, 0, 0.9)';
     private nowTime = '';

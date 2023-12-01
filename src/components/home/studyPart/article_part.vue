@@ -54,6 +54,7 @@ onUnmounted(() => {
 
 // 事件代理
 type ClickType = 'close' | 'detail' | 'eclipse';
+const getClickInfo = <T>(type: ClickType, content?: T) => { return new ClickClass<ClickType, T>(type, content).stringify(); }
 const articleClickMonitor = (event: any) => {
     for (let everyNode of event.composedPath()) {
         try {
@@ -82,16 +83,16 @@ const backToTop = () => {
 
 <template>
     <div class="article-container" :class="{ 'little': StudyController.getSearchState() }" @click="articleClickMonitor"
-        :clickInfo="new ClickClass<ClickType, void>('close').stringify()" ref="ArticleContainerRef">
+        :clickInfo="getClickInfo<void>('close')" ref="ArticleContainerRef">
         <TransitionGroup name="list-animate">
             <EssayInfo v-for="(item, index) in showData" :key="index"
-                :clickInfo="new ClickClass<ClickType, string>('detail', JSON.stringify(item)).stringify()" :index="index"
+                :clickInfo="getClickInfo<string>('detail', JSON.stringify(item))" :index="index"
                 :title="item.title" :titleEn="item.titleEn" :pubdate="item.pubdate" />
         </TransitionGroup>
         <div class="is-loading" v-show="StudyController.getIsLoading()">加载中......</div>
         <div class="no-more" v-if="isEnd">
             <span>没有更多了</span>
-            <span class="eclipse" :clickInfo="new ClickClass<ClickType, void>('eclipse').stringify()">收起</span>
+            <span class="eclipse" :clickInfo="getClickInfo<void>('eclipse')">收起</span>
         </div>
         <ToTop :show="showTop" @click="backToTop" />
     </div>

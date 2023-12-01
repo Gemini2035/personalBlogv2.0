@@ -45,11 +45,12 @@ onUnmounted(() => {
 });
 
 // 网站icon暗黑模式适配
-const siteIconUrl = computed(() => { return BasicSettings.getIsDark()? 'src/assets/navigator/siteIconDark.svg' : '/siteIcon.svg'; });
+const siteIconUrl = computed(() => { return BasicSettings.getIsDark()? 'src/assets/navigator/siteIconDark.svg' : './siteIcon.svg'; });
 const themeButtonUrl = computed(() => { return BasicSettings.getIsDark()? 'src/assets/navigator/moon.svg' : 'src/assets/navigator/sun.max.fill.svg'; });
 
 // 事件代理
 type ClickType = 'back' | 'change' | 'theme';
+const getClickInfo = <T>(type: ClickType, content?: T) => { return new ClickClass<ClickType, T>(type, content).stringify(); }
 const clickMonitor = (event: any) => {
     if (!event.target.getAttribute("clickInfo")) return;
     const clickInfo: ClickClass<ClickType, number | string> = JSON.parse(event.target.getAttribute("clickInfo"));
@@ -75,19 +76,19 @@ const clickMonitor = (event: any) => {
         <div class="navi-tips">
             <div class="button-group">
                 <div class="site-logo">
-                    <img :src="siteIconUrl" alt="返回" :clickInfo="new ClickClass<ClickType, void>('back').stringify()">
+                    <img :src="siteIconUrl" alt="返回" :clickInfo="getClickInfo<void>('back')">
                 </div>
-                <div class="theme-button"><img :src="themeButtonUrl" alt="主题" :clickInfo="new ClickClass<ClickType, void>('theme').stringify()"></div>
+                <div class="theme-button"><img :src="themeButtonUrl" alt="主题" :clickInfo="getClickInfo<void>('theme')"></div>
             </div>
             <p class="timer">{{ NaviController.getTime() }}</p>
         </div>
         <div class="maintain-container">
             <div v-for="item in naviData" :key="item.key" class="navi-item"
                 :style="{ backgroundColor: isFocus ? item.color : 'transparent' }"
-                :clickInfo="isFocus ? new ClickClass<ClickType, number>('change', item.key).stringify() : undefined">
+                :clickInfo="isFocus ? getClickInfo<number>('change', item.key) : undefined">
                 <div class="title-group">
                     <h1 class="title" :class="NaviController.isActive(item.key) ? 'active' : ''"
-                        :clickInfo="new ClickClass<ClickType, number>('change', item.key).stringify()">{{ item.name }}</h1>
+                        :clickInfo="getClickInfo<number>('change', item.key)">{{ item.name }}</h1>
                     <div class="divider" />
                     <h1 class="title-en">{{ item.nameEn }}</h1>
                 </div>

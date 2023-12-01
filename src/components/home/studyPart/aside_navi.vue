@@ -12,7 +12,7 @@ type ClickType = 'close' | 'classify';
 const clickInfoFormat = <T>(type: ClickType, target?: T) => { return new ClickClass<ClickType, T>(type, target).stringify(); }
 
 // 事件代理
-
+const getClickInfo = <T>(type: ClickType, content?: T) => { return new ClickClass<ClickType, T>(type, content).stringify(); }
 const asideClickMonitor = (event: any) => {
     for (let everyNode of event.composedPath()) {
         try {
@@ -45,7 +45,7 @@ const asideClickMonitor = (event: any) => {
             </div>
             <div class="menu-content">
                 <div v-for="item in StudyController.getMenuData()" :key="item.key" class="menu-item"
-                    :clickInfo="clickInfoFormat<number>('classify', item.key)"
+                    :clickInfo="getClickInfo<number>('classify', item.key)"
                     :class="{ 'active': StudyController.getMenuNum() === item.key }">
                     <p>{{ item.title }}</p>
                     <p>{{ item.titleEn }}</p>

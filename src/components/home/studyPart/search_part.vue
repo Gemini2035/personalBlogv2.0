@@ -32,6 +32,7 @@ const enterPress = () => input.value?.blur();
 
 // 事件代理
 type ClickType = 'detail';
+const getClickInfo = <T>(type: ClickType, content?: T) => { return new ClickClass<ClickType, T>(type, content).stringify(); }
 const router = useRouter();
 const clickMonitor = (event: any) => {
     for (let everyNode of event.composedPath()) {
@@ -80,7 +81,7 @@ onUnmounted(() => {
         </div>
         <div class="search-answer" @click="clickMonitor">
             <template v-if="StudyIntroController.getSearchResult().length">
-                <div v-for="(item, index) in StudyIntroController.getSearchResult()" :key="index" class="result-item" :clickInfo="new ClickClass<ClickType, string>('detail', JSON.stringify(item)).stringify()">
+                <div v-for="(item, index) in StudyIntroController.getSearchResult()" :key="index" class="result-item" :clickInfo="getClickInfo<string>('detail', JSON.stringify(item))">
                     <div class="arrow">
                         <div class="horizontal" />
                         <div class="left-arrow" />
